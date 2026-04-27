@@ -198,10 +198,88 @@
 }
 
 /* === DETAIL PRODUK: LOGO + KETERANGAN SEJAJAR === */
-.product-detail-box { display: flex; flex-direction: column; gap: 18px; align-items: stretch; width: 100%; }
+.product-detail-box { display: flex; flex-direction: column; gap: 18px; align-items: stretch; width: 100%; scroll-margin-top: 96px; }
 .product-logo-card { width: 100%; max-width: 220px; margin: 0 auto; }
 .product-desc-card { width: 100%; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 2rem; padding: 22px 24px; font-size: 12px; font-weight: 600; color: #64748b; line-height: 1.8; white-space: pre-line; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04); }
 @media (min-width: 768px) { .product-detail-box { flex-direction: row; align-items: stretch; justify-content: center; gap: 28px; } .product-logo-card { width: 240px; flex-shrink: 0; margin: 0; display: flex; flex-direction: column; justify-content: center; } .product-desc-card { flex: 1; min-height: 220px; display: flex; align-items: center; } }
+
+
+
+/* === FLOATING BUTTONS: HOME + KE ATAS === */
+.floating-actions {
+    position: fixed;
+    right: 18px;
+    bottom: 108px;
+    z-index: 65;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.floating-btn {
+    pointer-events: auto;
+    border: none;
+    outline: none;
+    min-width: 44px;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 999px;
+    background: #4f46e5;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    box-shadow: 0 16px 36px rgba(79, 70, 229, 0.28);
+    transition: transform 0.18s ease, opacity 0.18s ease, visibility 0.18s ease, background 0.18s ease;
+}
+
+.floating-btn:hover {
+    background: #4338ca;
+    transform: translateY(-2px);
+}
+
+.floating-btn:active {
+    transform: scale(0.94);
+}
+
+.floating-btn.secondary {
+    background: #ffffff;
+    color: #4f46e5;
+    border: 1px solid #e0e7ff;
+}
+
+.floating-btn.secondary:hover {
+    background: #eef2ff;
+}
+
+.floating-btn.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+}
+
+@media (max-width: 480px) {
+    .floating-actions {
+        right: 14px;
+        bottom: 98px;
+    }
+
+    .floating-btn {
+        min-width: 42px;
+        height: 42px;
+        padding: 0 12px;
+    }
+
+    .floating-btn span {
+        display: none;
+    }
+}
 
     </style>
 </head>
@@ -430,6 +508,18 @@
     <!-- Feedback Toast -->
     <div id="feedback-toast" class="fixed top-5 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-full text-[9px] font-black z-[999] transition-all transform scale-0 opacity-0 uppercase tracking-widest shadow-2xl"></div>
 
+    <!-- Floating Buttons -->
+    <div id="floating-actions" class="floating-actions">
+        <button id="floating-home-btn" onclick="floatingHome()" class="floating-btn is-hidden" type="button" aria-label="Kembali ke pilihan produk">
+            <i class="fas fa-home text-[12px]"></i>
+            <span>Home</span>
+        </button>
+        <button id="scroll-top-btn" onclick="scrollToProductDetail()" class="floating-btn secondary is-hidden" type="button" aria-label="Kembali ke detail produk yang dipilih">
+            <i class="fas fa-circle-info text-[12px]"></i>
+            <span>Detail</span>
+        </button>
+    </div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signInAnonymously, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
@@ -500,6 +590,71 @@ setTimeout(() => {
     }
 }, 8000);
 
+// --- FLOATING BUTTONS ---
+function updateFloatingButtons() {
+    const homeBtn = document.getElementById('floating-home-btn');
+    const topBtn = document.getElementById('scroll-top-btn');
+    const adminView = document.getElementById('admin-view');
+    const isAdminViewOpen = adminView && !adminView.classList.contains('hidden');
+
+    if (homeBtn) {
+        const shouldShowHome = !isAdminViewOpen && !!activeCat;
+        homeBtn.classList.toggle('is-hidden', !shouldShowHome);
+    }
+
+    if (topBtn) {
+        const shouldShowTop = !isAdminViewOpen && !!activeProd && window.scrollY > 320;
+        topBtn.classList.toggle('is-hidden', !shouldShowTop);
+    }
+}
+
+window.floatingHome = () => {
+    if (!activeCat) {
+        resetToHome();
+        updateFloatingButtons();
+        return;
+    }
+
+    const targetCat = activeCat;
+    activeProd = null;
+    activeVar = null;
+    currentSocialService = null;
+    currentSocialTier = null;
+    socialPrice = 0;
+
+    document.getElementById('section-form').classList.add('hidden');
+    document.getElementById('bottom-bar').classList.add('hidden');
+    const oldDesc = document.getElementById('prod-desc');
+    if (oldDesc) oldDesc.classList.remove('hidden');
+
+    // Kalau sebelumnya ada di halaman aplikasi premium, tombol ini balik ke opsi produk Premium.
+    // Untuk kategori lain, tombol ini juga balik ke daftar produk kategori yang sedang aktif.
+    changeCategory(targetCat);
+    setTimeout(() => {
+        document.getElementById('section-prod')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        updateFloatingButtons();
+    }, 80);
+};
+
+window.scrollToProductDetail = () => {
+    const detailBox = document.querySelector('.product-detail-box');
+    const sectionProd = document.getElementById('section-prod');
+
+    if (activeProd && detailBox) {
+        detailBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+    }
+
+    if (sectionProd) {
+        sectionProd.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+window.addEventListener('scroll', updateFloatingButtons, { passive: true });
+
 // --- DATA LISTENER ---
 function startListening() {
             const path = `artifacts/${appId}/public/data/products`;
@@ -554,6 +709,7 @@ onAuthStateChanged(auth, async (u) => {
             const oldDesc = document.getElementById('prod-desc');
             if (oldDesc) oldDesc.classList.remove('hidden');
             document.getElementById('bottom-bar').classList.add('hidden');
+            updateFloatingButtons();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
@@ -564,6 +720,7 @@ onAuthStateChanged(auth, async (u) => {
             document.getElementById('section-prod').classList.remove('hidden'); 
             document.getElementById('section-form').classList.add('hidden'); 
             document.getElementById('bottom-bar').classList.add('hidden'); 
+            updateFloatingButtons();
             window.scrollTo({ top: 300, behavior: 'smooth' }); 
         };
 
@@ -625,6 +782,7 @@ onAuthStateChanged(auth, async (u) => {
 
             document.getElementById('section-form').classList.remove('hidden'); 
             document.getElementById('bottom-bar').classList.remove('hidden'); 
+            updateFloatingButtons();
             document.getElementById('section-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
         };
 
@@ -844,6 +1002,7 @@ window.updateSosmedPrice = () => {
                 switchTxt.innerText = "Dashboard"; switchIcon.className = "fas fa-tools text-[10px] mr-1.5";
                 if(activeProd) bb.classList.remove('hidden');
             }
+            updateFloatingButtons();
         };
 
         window.filterAdmin = (f) => {
@@ -1209,6 +1368,7 @@ window.addTierRange = (sid, min='', max='', price='', code='') => {
             document.body.classList.add('dark');
             document.getElementById('theme-toggle').querySelector('i').className = 'fas fa-sun text-[12px]';
         }
+        updateFloatingButtons();
     </script>
 </body>
 </html>
