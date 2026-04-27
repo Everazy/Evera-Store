@@ -196,56 +196,13 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
-        /* === DETAIL PRODUK RESPONSIVE === */
-.product-detail-box {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    align-items: stretch;
-}
 
-.product-logo-card {
-    width: 100%;
-    max-width: 220px;
-    margin: 0 auto;
-}
+/* === DETAIL PRODUK: LOGO + KETERANGAN SEJAJAR === */
+.product-detail-box { display: flex; flex-direction: column; gap: 18px; align-items: stretch; width: 100%; }
+.product-logo-card { width: 100%; max-width: 220px; margin: 0 auto; }
+.product-desc-card { width: 100%; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 2rem; padding: 22px 24px; font-size: 12px; font-weight: 600; color: #64748b; line-height: 1.8; white-space: pre-line; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04); }
+@media (min-width: 768px) { .product-detail-box { flex-direction: row; align-items: stretch; justify-content: center; gap: 28px; } .product-logo-card { width: 240px; flex-shrink: 0; margin: 0; display: flex; flex-direction: column; justify-content: center; } .product-desc-card { flex: 1; min-height: 220px; display: flex; align-items: center; } }
 
-.product-desc-card {
-    width: 100%;
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 2rem;
-    padding: 24px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #64748b;
-    line-height: 1.8;
-    white-space: pre-line;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
-}
-
-@media (min-width: 768px) {
-    .product-detail-box {
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 28px;
-    }
-
-    .product-logo-card {
-        width: 240px;
-        flex-shrink: 0;
-        margin: 0;
-    }
-
-    .product-desc-card {
-        flex: 1;
-        min-height: 180px;
-        display: flex;
-        align-items: center;
-    }
-}
-        
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -594,7 +551,8 @@ onAuthStateChanged(auth, async (u) => {
             document.querySelectorAll('.cat-card').forEach(el => el.classList.remove('selected-item'));
             document.getElementById('section-prod').classList.add('hidden');
             document.getElementById('section-form').classList.add('hidden');
-            document.getElementById('prod-desc').classList.remove('hidden');
+            const oldDesc = document.getElementById('prod-desc');
+            if (oldDesc) oldDesc.classList.remove('hidden');
             document.getElementById('bottom-bar').classList.add('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
@@ -620,54 +578,55 @@ onAuthStateChanged(auth, async (u) => {
             }); 
         };
 
-window.changeProduct = (pid) => {
-    activeProd = storeData[activeCat].items.find(x => x.id === pid); 
-    if (!activeProd) return;
+        window.changeProduct = (pid) => {
+            activeProd = storeData[activeCat].items.find(x => x.id === pid); 
+            if (!activeProd) return;
 
-    const list = document.getElementById('list-prod'); 
-    list.className = "block";
+            const list = document.getElementById('list-prod');
+            list.className = "block";
 
-    const descText = activeProd.description || 'Layanan Terbaik Everastore';
+            const descText = activeProd.description || 'Layanan Terbaik Everastore';
 
-    list.innerHTML = `
-        <div class="product-detail-box">
-            <div class="product-logo-card bg-white p-6 rounded-[2.5rem] border-2 selected-item flex flex-col items-center">
-                <div class="img-container w-full mb-3">
-                    <img src="${getOptimizedUrl(activeProd.imageUrl)}" class="w-full h-full object-cover">
+            list.innerHTML = `
+                <div class="product-detail-box">
+                    <div class="product-logo-card bg-white p-6 rounded-[2.5rem] border-2 selected-item flex flex-col items-center">
+                        <div class="img-container w-full mb-3">
+                            <img src="${getOptimizedUrl(activeProd.imageUrl)}" class="w-full h-full object-cover">
+                        </div>
+                        <span class="font-black text-slate-800 text-[10px] uppercase text-center">${activeProd.name}</span>
+                    </div>
+
+                    <div class="product-desc-card">
+                        ${descText}
+                    </div>
                 </div>
-                <span class="font-black text-slate-800 text-[10px] uppercase text-center">${activeProd.name}</span>
-            </div>
+            `;
 
-            <div class="product-desc-card">
-                ${descText}
-            </div>
-        </div>
-    `;
+            const oldDesc = document.getElementById('prod-desc');
+            if (oldDesc) oldDesc.classList.add('hidden');
 
-    document.getElementById('prod-desc').classList.add('hidden');
+            const isSosmed = activeProd.category === 'sosmed';
+            document.getElementById('list-var').classList.toggle('hidden', isSosmed);
+            document.getElementById('sosmed-controls').classList.toggle('hidden', !isSosmed);
 
-    const isSosmed = activeProd.category === 'sosmed';
-    document.getElementById('list-var').classList.toggle('hidden', isSosmed);
-    document.getElementById('sosmed-controls').classList.toggle('hidden', !isSosmed);
+            if(isSosmed) {
+                const sel = document.getElementById('sosmed-service-select');
+                const activeServices = (activeProd.subServices || [])
+                    .map((s, i) => ({ service: s, index: i }))
+                    .filter(entry => entry.service.active !== false);
 
-    if(isSosmed) {
-        const sel = document.getElementById('sosmed-service-select');
-        const activeServices = (activeProd.subServices || [])
-            .map((s, i) => ({ service: s, index: i }))
-            .filter(entry => entry.service.active !== false);
+                sel.innerHTML = activeServices.map(entry => `<option value="${entry.index}">${entry.service.name}</option>`).join('');
+                document.getElementById('sosmed-qty').value = ''; 
+                socialPrice = 0; 
+                updateSosmedPrice();
+            } else {
+                renderAlbums();
+            }
 
-        sel.innerHTML = activeServices.map(entry => `<option value="${entry.index}">${entry.service.name}</option>`).join('');
-        document.getElementById('sosmed-qty').value = ''; 
-        socialPrice = 0; 
-        updateSosmedPrice();
-    } else {
-        renderAlbums();
-    }
-
-    document.getElementById('section-form').classList.remove('hidden'); 
-    document.getElementById('bottom-bar').classList.remove('hidden'); 
-    document.getElementById('section-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
-};
+            document.getElementById('section-form').classList.remove('hidden'); 
+            document.getElementById('bottom-bar').classList.remove('hidden'); 
+            document.getElementById('section-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
 
         function renderAlbums() {
             const listVar = document.getElementById('list-var'); listVar.innerHTML = '';
