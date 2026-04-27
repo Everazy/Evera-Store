@@ -473,12 +473,12 @@
             setTimeout(() => { t.classList.replace('scale-100', 'scale-0'); t.classList.replace('opacity-100', 'opacity-0'); }, 3000); 
         };
 
-        window.hideOverlay = () => {
-            const overlay = document.getElementById('loading-overlay');
-            if (overlay) { overlay.style.opacity = '0'; setTimeout(() => overlay.style.display = 'none', 500); }
-        };
+ window.hideOverlay = () => {
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay) { overlay.style.opacity = '0'; setTimeout(() => overlay.style.display = 'none', 500); }
+};
 
-        window.addEventListener('error', function(e) {
+window.addEventListener('error', function(e) {
     console.error('JS ERROR:', e.message, e.filename, e.lineno, e.colno);
     hideOverlay();
 });
@@ -488,8 +488,8 @@ window.addEventListener('unhandledrejection', function(e) {
     hideOverlay();
 });
 
-        // --- DATA LISTENER ---
-        function startListening() {
+// --- DATA LISTENER ---
+function startListening() {
             const path = `artifacts/${appId}/public/data/products`;
             onSnapshot(collection(db, path), (snapshot) => {
                 storeData.topup.items = []; storeData.sosmed.items = []; storeData.premium.items = [];
@@ -2057,19 +2057,21 @@ window.addTierRange = (sid, min='', max='', price='', code='') => {
                 updatedAt: Date.now() 
             };
 
-            if(cat === 'sosmed') {
-                data.subServices = Array.from(document.querySelectorAll('.sosmed-service-box')).map(box => ({
-                    name: box.querySelector('.s-name').value, 
-                    code: box.querySelector('.s-code').value.toUpperCase(),
-                    loginType: box.querySelector('.s-type').value,
-                    promo: box.querySelector('.s-promo').checked,
-                    active: box.querySelector('.s-active').checked,
-rateList: Array.from(box.querySelectorAll('.tier-row')).map(row => ({ 
-    code: row.querySelector('.t-code').value.toUpperCase(),
-    min: parseInt(row.querySelector('.t-min').value) || 1, 
-    max: parseInt(row.querySelector('.t-max').value) || 9999, 
-    price: parseInt(row.querySelector('.t-price').value) || 0 
-}))
+if(cat === 'sosmed') {
+    data.subServices = Array.from(document.querySelectorAll('.sosmed-service-box')).map(box => ({
+        name: box.querySelector('.s-name').value, 
+        code: '',
+        loginType: box.querySelector('.s-type').value,
+        promo: box.querySelector('.s-promo').checked,
+        active: box.querySelector('.s-active').checked,
+        rateList: Array.from(box.querySelectorAll('.tier-row')).map(row => ({ 
+            code: row.querySelector('.t-code').value.toUpperCase(),
+            min: parseInt(row.querySelector('.t-min').value) || 1, 
+            max: parseInt(row.querySelector('.t-max').value) || 9999, 
+            price: parseInt(row.querySelector('.t-price').value) || 0 
+        }))
+    }));
+}
                 }));
             } else {
                 data.albums = Array.from(document.querySelectorAll('.album-box')).map(box => ({
