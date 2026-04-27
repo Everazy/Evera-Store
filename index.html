@@ -459,6 +459,7 @@
         let storeData = { topup: { items: [] }, sosmed: { items: [] }, premium: { items: [] } };
         let activeCat = null, activeProd = null, activeVar = null, isAdmin = false, currentEditId = null, currentFilter = 'all';
         let socialPrice = 0, currentSocialService = null, currentSocialTier = null, premiumQty = 1;
+        let hasStartedListening = false;
 
         // --- OPTIMASI GAMBAR ---
         function getOptimizedUrl(url) {
@@ -478,6 +479,12 @@
     if (overlay) { overlay.style.opacity = '0'; setTimeout(() => overlay.style.display = 'none', 500); }
 };
 
+function safeStartListening() {
+    if (hasStartedListening) return;
+    hasStartedListening = true;
+    startListening();
+}
+
 window.addEventListener('error', function(e) {
     console.error('JS ERROR:', e.message, e.filename, e.lineno, e.colno);
     hideOverlay();
@@ -487,6 +494,14 @@ window.addEventListener('unhandledrejection', function(e) {
     console.error('PROMISE ERROR:', e.reason);
     hideOverlay();
 });
+
+setTimeout(() => {
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay && overlay.style.display !== 'none') {
+        console.warn('Loading terlalu lama, overlay dipaksa hilang.');
+        hideOverlay();
+    }
+}, 8000);
 
 // --- DATA LISTENER ---
 function startListening() {
@@ -509,22 +524,29 @@ function startListening() {
         }
 
         // --- AUTH LOGIC ---
-        onAuthStateChanged(auth, async (u) => { 
-            if (u) {
-                if (!u.isAnonymous) {
-                    isAdmin = true;
-                    document.getElementById('admin-indicator').classList.replace('hidden', 'flex'); 
-                    document.getElementById('login-trigger').classList.add('hidden'); 
-                } else {
-                    isAdmin = false;
-                    document.getElementById('admin-indicator').classList.replace('flex', 'hidden'); 
-                    document.getElementById('login-trigger').classList.remove('hidden'); 
-                }
-                startListening();
+onAuthStateChanged(auth, async (u) => { 
+    try {
+        if (u) {
+            if (!u.isAnonymous) {
+                isAdmin = true;
+                document.getElementById('admin-indicator').classList.replace('hidden', 'flex'); 
+                document.getElementById('login-trigger').classList.add('hidden'); 
             } else {
-                signInAnonymously(auth).catch(() => hideOverlay());
+                isAdmin = false;
+                document.getElementById('admin-indicator').classList.replace('flex', 'hidden'); 
+                document.getElementById('login-trigger').classList.remove('hidden'); 
             }
-        });
+
+            safeStartListening();
+        } else {
+            await signInAnonymously(auth);
+        }
+    } catch (err) {
+        console.error("Auth Error:", err);
+        hideOverlay();
+        showToast("GAGAL LOGIN ANONIM!");
+    }
+});
 
         // --- USER ACTIONS ---
         window.resetToHome = () => {
