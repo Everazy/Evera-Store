@@ -16,94 +16,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js"></script>
-  /* === RESPONSIVE DESKTOP EVERASTORE === */
-@media (min-width: 1024px) {
-    body {
-        background:
-            radial-gradient(circle at top left, rgba(79, 70, 229, 0.08), transparent 35%),
-            radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.08), transparent 35%),
-            var(--bg-color);
-    }
-
-    .app-shell {
-        max-width: 1180px !important;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .desktop-layout {
-        display: grid;
-        grid-template-columns: 360px minmax(0, 1fr);
-        gap: 28px;
-        align-items: start;
-    }
-
-    .desktop-sidebar {
-        position: sticky;
-        top: 96px;
-    }
-
-    .desktop-panel {
-        background: white;
-        border: 1px solid #eef2ff;
-        border-radius: 2rem;
-        padding: 24px;
-        box-shadow: 0 20px 60px rgba(15, 23, 42, 0.06);
-    }
-
-    #list-prod {
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    }
-
-    #promo-home-list {
-        display: grid !important;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        overflow: visible !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-    }
-
-    #promo-home-list > div {
-        min-width: 0 !important;
-    }
-
-    #bottom-bar {
-        max-width: 1180px !important;
-        border-radius: 2rem 2rem 0 0;
-    }
-
-    #admin-view {
-        max-width: 1180px !important;
-    }
-
-    #admin-product-list {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-    }
-
-    #modal-product > div,
-    #modal-checkout > div {
-        max-width: 680px !important;
-        border-radius: 2.5rem !important;
-    }
-
-    .modal-body {
-        max-height: calc(90vh - 170px);
-    }
-}
-
-@media (min-width: 1280px) {
-    #list-prod {
-        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    }
-
-    #admin-product-list {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-}
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         
@@ -232,6 +144,67 @@
             border-radius: 99px;
             text-transform: uppercase;
         }
+/* === RESPONSIVE DESKTOP AMAN === */
+@media (min-width: 1024px) {
+    .app-shell {
+        max-width: 1180px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #user-view {
+        max-width: 1180px !important;
+    }
+
+    #list-prod {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+
+    #promo-home-list {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        overflow: visible !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    #promo-home-list > div {
+        min-width: 0 !important;
+    }
+
+    #bottom-bar {
+        max-width: 1180px !important;
+        border-radius: 2rem 2rem 0 0;
+    }
+
+    #admin-view {
+        max-width: 1180px !important;
+    }
+
+    #admin-product-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    #modal-product > div,
+    #modal-checkout > div {
+        max-width: 680px !important;
+        border-radius: 2.5rem !important;
+    }
+}
+
+@media (min-width: 1280px) {
+    #list-prod {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    }
+
+    #admin-product-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -243,8 +216,9 @@
     </div>
 
     <!-- Header & Navigasi -->
-    <nav class="bg-white border-b sticky top-0 z-50 px-6 py-4">
-        <div class="max-w-md mx-auto flex justify-between items-center">
+<nav class="bg-white/90 backdrop-blur border-b sticky top-0 z-50 px-6 py-4">
+    <div class="app-shell flex justify-between items-center">
+        <main id="admin-view" class="app-shell p-5 lg:p-8 pb-40 hidden">
             <div onclick="resetToHome()" class="cursor-pointer select-none active:opacity-50 transition-opacity">
                 <span class="font-extrabold text-indigo-600 text-xl uppercase tracking-tighter">Everastore</span>
                 <p class="text-[8px] text-slate-400 font-bold uppercase tracking-[0.2em]">Premium Digital</p>
@@ -503,6 +477,16 @@
             const overlay = document.getElementById('loading-overlay');
             if (overlay) { overlay.style.opacity = '0'; setTimeout(() => overlay.style.display = 'none', 500); }
         };
+
+        window.addEventListener('error', function(e) {
+    console.error('JS ERROR:', e.message, e.filename, e.lineno, e.colno);
+    hideOverlay();
+});
+
+window.addEventListener('unhandledrejection', function(e) {
+    console.error('PROMISE ERROR:', e.reason);
+    hideOverlay();
+});
 
         // --- DATA LISTENER ---
         function startListening() {
@@ -998,7 +982,7 @@ window.addTierRange = (sid, min='', max='', price='', code='') => {
             };
 
             if(cat === 'sosmed') {
-               data.subServices = Array.from(document.querySelectorAll('.sosmed-service-box')).map(box => ({
+      data.subServices = Array.from(document.querySelectorAll('.sosmed-service-box')).map(box => ({
     name: box.querySelector('.s-name').value, 
     code: '',
     loginType: box.querySelector('.s-type').value,
@@ -1346,8 +1330,6 @@ window.addTierRange = (sid, min='', max='', price='', code='') => {
 
     <!-- Tampilan User -->
     <main id="user-view" class="app-shell p-5 lg:p-8 pb-40">
-    <div class="desktop-layout">
-        <div class="desktop-sidebar space-y-8">
         <!-- Section 01: Kategori -->
         <section class="mb-8">
             <h2 class="text-[10px] font-black text-slate-400 mb-4 uppercase tracking-[0.2em]">01. Pilih Kategori</h2>
