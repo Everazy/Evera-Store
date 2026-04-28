@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Katalog Store - Everastore</title>
+    <title>Katalog Store - Everastore Final</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js"></script>
@@ -382,8 +382,11 @@ body.dark #theme-toggle {
     aspect-ratio: 16 / 5; /* rasio banner sama di HP dan laptop */
     overflow: hidden;
     border-radius: 2rem;
-    background: #e2e8f0;
-    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    background: #ffffff;
+    border: 1px solid rgba(37, 99, 235, 0.14);
+    box-shadow:
+        0 12px 35px rgba(15, 23, 42, 0.12),
+        0 4px 12px rgba(15, 23, 42, 0.05);
     user-select: none;
     touch-action: pan-y;
 }
@@ -412,14 +415,7 @@ body.dark #theme-toggle {
 }
 
 .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        90deg,
-        rgba(15, 23, 42, 0.62) 0%,
-        rgba(15, 23, 42, 0.28) 48%,
-        rgba(15, 23, 42, 0.08) 100%
-    );
+    display: none;
 }
 
 .hero-content {
@@ -513,7 +509,10 @@ body.dark #theme-toggle {
 
 body.dark .hero-banner {
     background: #1e293b;
-    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.25);
+    border-color: rgba(129, 140, 248, 0.26);
+    box-shadow:
+        0 14px 38px rgba(0, 0, 0, 0.32),
+        0 4px 12px rgba(129, 140, 248, 0.12);
 }
 
 @media (min-width: 768px) {
@@ -529,6 +528,247 @@ body.dark .hero-banner {
     }
 }
 
+
+/* === HIDE HERO BANNER BUTTONS FINAL === */
+.hero-nav,
+.hero-arrow,
+.hero-dots,
+.hero-dot {
+    display: none !important;
+}
+
+
+/* === EVERASTORE ENHANCEMENT FINAL: SEARCH, TRUST, BEST SELLER, CARA ORDER, TESTIMONI === */
+.info-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 2rem;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+}
+
+.trust-badge-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1.5rem;
+    padding: 14px 10px;
+    text-align: center;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+}
+
+.trust-badge-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 1.1rem;
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.search-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 2rem;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+}
+
+.search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 12px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.search-box input::placeholder {
+    color: #94a3b8;
+}
+
+.best-seller-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: linear-gradient(45deg, #f59e0b, #f97316);
+    color: white;
+    font-size: 7px;
+    font-weight: 900;
+    padding: 4px 8px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    box-shadow: 0 8px 18px rgba(249, 115, 22, 0.28);
+    z-index: 2;
+}
+
+.product-card-enhanced {
+    position: relative;
+}
+
+.step-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1.7rem;
+    padding: 16px;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.04);
+}
+
+.step-number {
+    width: 34px;
+    height: 34px;
+    border-radius: 1rem;
+    background: #4f46e5;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+
+
+.admin-stat-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1.5rem;
+    padding: 16px;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+}
+
+.admin-search-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1.5rem;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+body.dark .info-card,
+body.dark .trust-badge-card,
+body.dark .search-box,
+body.dark .step-card,
+body.dark .testimonial-card,
+body.dark .admin-stat-card,
+body.dark .admin-search-box {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+body.dark .trust-badge-icon {
+    background-color: rgba(79, 70, 229, 0.25) !important;
+    color: #c7d2fe !important;
+}
+
+body.dark .search-box input,
+body.dark .admin-search-box input {
+    color: #f8fafc !important;
+}
+
+body.dark .search-box input::placeholder,
+body.dark .admin-search-box input::placeholder {
+    color: #94a3b8 !important;
+}
+
+@media (min-width: 1024px) {
+    #best-seller-list {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        overflow: visible !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    #best-seller-list > div {
+        min-width: 0 !important;
+    }
+}
+
+/* === QUICK LINKS FINAL === */
+.quick-link-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1.5rem;
+    padding: 14px 10px;
+    text-align: center;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+    transition: all 0.18s ease;
+    min-height: 104px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.quick-link-card:hover {
+    transform: translateY(-1px);
+    border-color: #c7d2fe;
+    box-shadow: 0 12px 28px rgba(79, 70, 229, 0.10);
+}
+
+.quick-link-card:active {
+    transform: scale(0.97);
+}
+
+.quick-link-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 1rem;
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quick-link-blue {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.quick-link-indigo {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.quick-link-green {
+    background: #ecfdf5;
+    color: #16a34a;
+}
+
+body.dark .quick-link-card {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+body.dark .quick-link-blue,
+body.dark .quick-link-indigo,
+body.dark .quick-link-green {
+    background-color: rgba(79, 70, 229, 0.22) !important;
+    color: #c7d2fe !important;
+}
 
     </style>
 </head>
@@ -576,48 +816,38 @@ body.dark .hero-banner {
             <div id="hero-banner" class="hero-banner">
                 <div class="hero-banner-track">
                     <div class="hero-slide">
-                        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1600&auto=format&fit=crop" alt="Banner Everastore 1">
-                        <div class="hero-overlay"></div>
-                        <div class="hero-content">
-                            <h3>Everastore New Update</h3>
-                            <p>Tampilan katalog lebih fresh, responsif, dan nyaman untuk semua perangkat.</p>
-                        </div>
+                        <img src="https://raw.githubusercontent.com/Everazy/EVERASTORE/refs/heads/main/BANNER%201.png" alt="Banner Everastore 1">
                     </div>
 
                     <div class="hero-slide">
-                        <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?q=80&w=1600&auto=format&fit=crop" alt="Banner Everastore 2">
-                        <div class="hero-overlay"></div>
-                        <div class="hero-content">
-                            <h3>Premium Digital</h3>
-                            <p>Top up game, kebutuhan sosmed, dan layanan premium dalam satu katalog praktis.</p>
-                        </div>
+                        <img src="https://raw.githubusercontent.com/Everazy/EVERASTORE/refs/heads/main/BANNER%202.png" alt="Banner Everastore 2">
                     </div>
 
                     <div class="hero-slide">
-                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop" alt="Banner Everastore 3">
-                        <div class="hero-overlay"></div>
-                        <div class="hero-content">
-                            <h3>Fast Order</h3>
-                            <p>Pilih produk lebih mudah dengan detail, harga, dan tombol order yang jelas.</p>
-                        </div>
+                        <img src="https://raw.githubusercontent.com/Everazy/EVERASTORE/refs/heads/main/BANNER%203.png" alt="Banner Everastore 3">
                     </div>
-                </div>
-
-                <div class="hero-nav">
-                    <button class="hero-arrow prev" type="button" aria-label="Banner sebelumnya">
-                        <i class="fas fa-chevron-left text-[11px]"></i>
-                    </button>
-                    <button class="hero-arrow next" type="button" aria-label="Banner berikutnya">
-                        <i class="fas fa-chevron-right text-[11px]"></i>
-                    </button>
-                </div>
-
-                <div class="hero-dots" aria-label="Navigasi banner">
-                    <button class="hero-dot active" type="button" data-slide="0" aria-label="Banner 1"></button>
-                    <button class="hero-dot" type="button" data-slide="1" aria-label="Banner 2"></button>
-                    <button class="hero-dot" type="button" data-slide="2" aria-label="Banner 3"></button>
                 </div>
             </div>
+        </section>
+
+
+        <!-- Pencarian Produk -->
+        <section class="mb-8">
+            <div class="search-box">
+                <i class="fas fa-search text-indigo-500 text-sm"></i>
+                <input id="product-search-input" type="text" oninput="searchProducts()" placeholder="Cari produk, contoh: Netflix, ML, Instagram...">
+                <button onclick="clearSearchProducts()" type="button" class="text-slate-300 hover:text-indigo-600 transition-colors">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Produk Terlaris -->
+        <section id="best-seller-section" class="mb-8 hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-[10px] font-black text-amber-500 uppercase tracking-[0.2em]">⭐ Produk Terlaris</h2>
+            </div>
+            <div id="best-seller-list" class="flex gap-4 overflow-x-auto pb-4 -mx-5 px-5 snap-x"></div>
         </section>
 
         <!-- Section 01: Kategori -->
@@ -639,19 +869,52 @@ body.dark .hero-banner {
             </div>
         </section>
 
-        <!-- Banner Komunitas (DIKEMBALIKAN) -->
-        <section class="mb-8 px-1">
-            <a href="https://chat.whatsapp.com/HwPyeKhzD4tJWv7Dm9zQJe?mode=gi_t" target="_blank" class="block bg-gradient-to-br from-indigo-600 to-indigo-800 p-6 rounded-[2.5rem] relative overflow-hidden active:scale-[0.98] transition-all shadow-lg shadow-indigo-100">
-                <div class="relative z-10">
-                    <h3 class="text-white font-black text-xs uppercase mb-1">Grup WhatsApp</h3>
-                    <p class="text-indigo-100 text-[9px] leading-relaxed max-w-[80%]">Gabung grup WhatsApp Everastore untuk info promo terbatas & update stok harian.</p>
+
+
+        <!-- Tombol Cara Order -->
+        <section class="mb-8">
+            <button onclick="openCaraOrderModal()" type="button" class="w-full bg-white border border-indigo-100 rounded-[2rem] p-5 shadow-sm flex items-center justify-between active:scale-[0.98] transition-all">
+                <div class="flex items-center gap-4 text-left">
+                    <div class="w-11 h-11 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
+                        <i class="fas fa-list-check text-sm"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-[10px] font-black text-slate-800 uppercase tracking-[0.15em]">Cara Order</h2>
+                        <p class="text-[8px] font-bold text-slate-400 uppercase mt-0.5">Klik untuk melihat panduan singkat</p>
+                    </div>
                 </div>
-                <i class="fab fa-whatsapp absolute right-[-5px] bottom-[-5px] text-7xl text-white opacity-10"></i>
-                <div class="mt-4 inline-flex items-center gap-2 bg-white/20 px-4 py-1.5 rounded-full relative z-10">
-                    <span class="text-white text-[8px] font-black uppercase">Gabung Sekarang</span>
-                    <i class="fas fa-chevron-right text-white text-[7px]"></i>
-                </div>
-            </a>
+                <i class="fas fa-chevron-right text-indigo-400 text-xs"></i>
+            </button>
+        </section>
+
+
+        <!-- Link Cepat -->
+        <section class="mb-8">
+            <div class="grid grid-cols-3 gap-3">
+                <a id="google-drive-testimonial-link" href="https://drive.google.com/drive/folders/1J2REaUaDImUBaTf0kpGvGpTYe2b2GB4n?usp=drive_link" target="_blank" class="quick-link-card">
+                    <div class="quick-link-icon quick-link-blue">
+                        <i class="fab fa-google-drive text-lg"></i>
+                    </div>
+                    <h3 class="text-[8px] font-black text-slate-800 uppercase leading-tight">Lihat Testimoni</h3>
+                    <p class="text-[7px] font-bold text-slate-400 uppercase leading-relaxed mt-1">Review pelanggan</p>
+                </a>
+
+                <a href="https://chat.whatsapp.com/HwPyeKhzD4tJWv7Dm9zQJe?mode=gi_t" target="_blank" class="quick-link-card">
+                    <div class="quick-link-icon quick-link-green">
+                        <i class="fab fa-whatsapp text-lg"></i>
+                    </div>
+                    <h3 class="text-[8px] font-black text-slate-800 uppercase leading-tight">Grup WhatsApp</h3>
+                    <p class="text-[7px] font-bold text-slate-400 uppercase leading-relaxed mt-1">Promo & update</p>
+                </a>
+
+                <a id="secreto-testimonial-link" href="https://secreto.site/awspz7" target="_blank" class="quick-link-card">
+                    <div class="quick-link-icon quick-link-indigo">
+                        <i class="fas fa-comment-dots text-lg"></i>
+                    </div>
+                    <h3 class="text-[8px] font-black text-slate-800 uppercase leading-tight">Bagikan Pengalaman</h3>
+                    <p class="text-[7px] font-bold text-slate-400 uppercase leading-relaxed mt-1">Kesan & masukan</p>
+                </a>
+            </div>
         </section>
 
         <!-- Promo Section -->
@@ -704,6 +967,29 @@ body.dark .hero-banner {
                     uppercase shadow-lg shadow-indigo-100">Tambah +</button>
         </div>
 
+
+        <!-- Statistik Dashboard -->
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-5">
+            <div class="admin-stat-card">
+                <p class="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em]">Total Produk</p>
+                <h3 id="stat-total-products" class="text-xl font-black text-indigo-600 mt-1">0</h3>
+            </div>
+            <div class="admin-stat-card">
+                <p class="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em]">Promo</p>
+                <h3 id="stat-total-promos" class="text-xl font-black text-rose-500 mt-1">0</h3>
+            </div>
+            <div class="admin-stat-card">
+                <p class="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em]">Terlaris</p>
+                <h3 id="stat-total-best" class="text-xl font-black text-amber-500 mt-1">0</h3>
+            </div>
+        </div>
+
+        <!-- Cari Produk Admin -->
+        <div class="admin-search-box mb-5">
+            <i class="fas fa-search text-indigo-500 text-xs"></i>
+            <input id="admin-search-input" type="text" oninput="renderAdminProducts()" placeholder="Cari produk di dashboard...">
+        </div>
+
         <!-- Filter Tab Admin -->
         <div class="flex gap-2 overflow-x-auto pb-4 -mx-2 px-2 no-scrollbar mb-4">
             <button onclick="filterAdmin('all')" class="tab-btn active px-4 py-2 rounded-full text-[8px] font-black uppercase border whitespace-nowrap" id="tab-all">Semua</button>
@@ -714,6 +1000,47 @@ body.dark .hero-banner {
 
         <div id="admin-product-list" class="space-y-3"></div>
     </main>
+
+
+    <!-- Modal Cara Order -->
+    <div id="modal-cara-order" class="fixed inset-0 z-[72] flex items-end sm:items-center justify-center p-0 sm:p-6 bg-slate-900/60 backdrop-blur-sm hidden">
+        <div class="bg-white w-full max-w-md rounded-t-[2.5rem] sm:rounded-[2.5rem] shadow-2xl flex flex-col max-h-[95vh] overflow-hidden">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 class="font-black text-indigo-600 uppercase tracking-[0.15em] text-[11px]">Cara Order</h3>
+                <button onclick="closeCaraOrderModal()" class="text-slate-300 w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-50 transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body p-6 space-y-4">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="text-[9px] font-black text-slate-800 uppercase mb-1">Pilih Kategori</h3>
+                    <p class="text-[8px] font-bold text-slate-400 leading-relaxed">Pilih kategori Game, Sosmed, atau Premium sesuai kebutuhan.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="text-[9px] font-black text-slate-800 uppercase mb-1">Pilih Produk</h3>
+                    <p class="text-[8px] font-bold text-slate-400 leading-relaxed">Klik produk, lalu pilih paket atau layanan yang ingin dibeli.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="text-[9px] font-black text-slate-800 uppercase mb-1">Isi Data</h3>
+                    <p class="text-[8px] font-bold text-slate-400 leading-relaxed">Masukkan ID, server, email, link, atau catatan tambahan jika diperlukan.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 class="text-[9px] font-black text-slate-800 uppercase mb-1">Konfirmasi WhatsApp</h3>
+                    <p class="text-[8px] font-bold text-slate-400 leading-relaxed">Tekan tombol beli, cek pesanan, lalu lanjutkan ke WhatsApp admin.</p>
+                </div>
+            </div>
+            <div class="p-6 border-t bg-slate-50">
+                <button onclick="closeCaraOrderModal()" class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-black text-[11px] uppercase shadow-lg shadow-indigo-100 active:scale-[0.98] transition-all">
+                    Saya Mengerti
+                </button>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Modal Login -->
     <div id="modal-login" class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-900/60 backdrop-blur-sm hidden">
@@ -757,6 +1084,7 @@ body.dark .hero-banner {
         </div>
     </div>
 
+
     <!-- Modal CRUD Admin -->
     <div id="modal-product" class="fixed inset-0 z-[80] flex items-end sm:items-center justify-center p-0 sm:p-6 bg-slate-900/60 backdrop-blur-sm hidden">
         <div class="bg-white w-full max-w-md rounded-t-[2.5rem] sm:rounded-[2.5rem] shadow-2xl flex flex-col max-h-[95vh] overflow-hidden">
@@ -774,6 +1102,10 @@ body.dark .hero-banner {
                         <option value="premium">KATEGORI: PREMIUM</option>
                     </select>
                     <textarea id="edit-desc" placeholder="Deskripsi..." class="w-full bg-slate-50 p-3 rounded-xl border border-slate-100 font-bold text-xs h-16 outline-none"></textarea>
+                    <label class="flex items-center gap-2 cursor-pointer select-none bg-amber-50 p-3 rounded-xl">
+                        <input type="checkbox" id="edit-best-seller" class="w-4 h-4">
+                        <span class="text-[9px] font-black text-amber-600 uppercase">Tandai sebagai produk terlaris</span>
+                    </label>
                 </div>
                 
                 <div id="builder-albums" class="space-y-4">
@@ -792,6 +1124,7 @@ body.dark .hero-banner {
             </div>
         </div>
     </div>
+
 
     <!-- Bottom Bar User -->
     <div id="bottom-bar" class="fixed bottom-0 left-0 right-0 bg-white border-t p-5 max-w-md mx-auto hidden z-40 rounded-t-[2.5rem] shadow-[0_-15px_40px_rgba(0,0,0,0.05)]">
@@ -844,7 +1177,7 @@ body.dark .hero-banner {
 
         let storeData = { topup: { items: [] }, sosmed: { items: [] }, premium: { items: [] } };
         let activeCat = null, activeProd = null, activeVar = null, isAdmin = false, currentEditId = null, currentFilter = 'all';
-        let socialPrice = 0, currentSocialService = null, currentSocialTier = null, premiumQty = 1;
+        let socialPrice = 0, currentSocialService = null, currentSocialTier = null, premiumQty = 1, currentTestimonialEditId = null, globalSearchQuery = '';
         let hasStartedListening = false;
 
         // --- OPTIMASI GAMBAR ---
@@ -965,7 +1298,10 @@ function startListening() {
                     if (storeData[data.category]) storeData[data.category].items.push(item);
                 });
                 renderPromoHome();
+                renderBestSellerHome();
+                updateAdminStats();
                 if (activeCat) refreshCategoryUI();
+                if (globalSearchQuery) searchProducts();
                 if (isAdmin) renderAdminProducts();
                 hideOverlay();
             }, (error) => {
@@ -1001,7 +1337,7 @@ onAuthStateChanged(auth, async (u) => {
 
         // --- USER ACTIONS ---
         window.resetToHome = () => {
-            activeCat = null; activeProd = null; activeVar = null;
+            activeCat = null; activeProd = null; activeVar = null; globalSearchQuery = ''; const searchInput = document.getElementById('product-search-input'); if (searchInput) searchInput.value = '';
             document.querySelectorAll('.cat-card').forEach(el => el.classList.remove('selected-item'));
             document.getElementById('section-prod').classList.add('hidden');
             document.getElementById('section-form').classList.add('hidden');
@@ -1030,7 +1366,12 @@ onAuthStateChanged(auth, async (u) => {
             const items = storeData[activeCat].items;
             if (items.length === 0) { l.innerHTML = `<p class="col-span-2 text-center text-slate-400 py-10 text-[10px] font-bold">Produk kosong.</p>`; return; }
             items.forEach(p => { 
-                l.innerHTML += `<div onclick="window.changeProduct('${p.id}')" class="bg-white p-4 rounded-[2rem] border shadow-sm flex flex-col items-center cursor-pointer active:scale-95 transition-all"><div class="img-container w-full mb-2"><img src="${getOptimizedUrl(p.imageUrl)}" class="w-full h-full object-cover"></div><span class="font-black text-slate-800 text-[9px] text-center uppercase truncate w-full px-1">${p.name}</span><div class="mt-1.5 bg-indigo-50 text-indigo-600 text-[7px] font-black px-3 py-1 rounded-full uppercase">Pilih</div></div>`; 
+                l.innerHTML += `<div onclick="window.changeProduct('${p.id}')" class="product-card-enhanced bg-white p-4 rounded-[2rem] border shadow-sm flex flex-col items-center cursor-pointer active:scale-95 transition-all">
+                    ${p.bestSeller ? '<div class="best-seller-badge">Terlaris</div>' : ''}
+                    <div class="img-container w-full mb-2"><img src="${getOptimizedUrl(p.imageUrl)}" class="w-full h-full object-cover"></div>
+                    <span class="font-black text-slate-800 text-[9px] text-center uppercase truncate w-full px-1">${p.name}</span>
+                    <div class="mt-1.5 bg-indigo-50 text-indigo-600 text-[7px] font-black px-3 py-1 rounded-full uppercase">Pilih</div>
+                </div>`; 
             }); 
         };
 
@@ -1255,32 +1596,40 @@ window.updateSosmedPrice = () => {
         window.confirmCheckout = () => {
             let note = "";
             const fid = document.getElementById('final-id'), fsv = document.getElementById('final-server'), fac = document.getElementById('final-acc'), fpw = document.getElementById('final-pw'), finv = document.getElementById('final-invite');
+
             if (fid && !fid.value.trim()) {
                 showToast("ISI ID AKUN!");
                 return;
             }
+
             if (fac && (!fac.value.trim() || !fpw.value.trim())) {
                 showToast("ISI EMAIL/HP DAN PASSWORD!");
                 return;
             }
+
             if (finv && !finv.value.trim()) {
-    showToast(activeProd.category === 'sosmed' ? "ISI LINK!" : "ISI EMAIL!");
-    return;
-}
+                showToast(activeProd.category === 'sosmed' ? "ISI LINK!" : "ISI EMAIL!");
+                return;
+            }
+
             if (fid && fid.value) note += `[ID: ${fid.value}] [Srv: ${fsv.value || '-'}]`;
             if (fac && fac.value) note += `[Acc: ${fac.value}] [PW: ${fpw.value}]`;
+
             if (finv && finv.value) {
-    const inviteLabel = activeProd.category === 'sosmed' ? 'Link' : 'Email';
-    note += `[${inviteLabel}: ${finv.value}]`;
-}
+                const inviteLabel = activeProd.category === 'sosmed' ? 'Link' : 'Email';
+                note += `[${inviteLabel}: ${finv.value}]`;
+            }
+
             const prodCode = activeProd.category === 'sosmed' 
-    ? (currentSocialTier?.code || 'SOS') 
-    : (activeVar.code || 'VAR');
+                ? (currentSocialTier?.code || 'SOS') 
+                : (activeVar.code || 'VAR');
+
             const qty = activeProd.category === 'sosmed'
                 ? document.getElementById('sosmed-qty').value
                 : activeProd.category === 'premium'
                     ? document.getElementById('final-qty')?.value || 1
                     : 1;
+
             const addNote = document.getElementById('final-note')?.value;
             if(addNote) note += " | " + addNote;
 
@@ -1295,7 +1644,7 @@ window.updateSosmedPrice = () => {
             if (av.classList.contains('hidden')) {
                 uv.classList.add('hidden'); av.classList.remove('hidden'); bb.classList.add('hidden');
                 switchTxt.innerText = "Katalog"; switchIcon.className = "fas fa-eye text-[10px] mr-1.5";
-                renderAdminProducts();
+                renderAdminProducts(); updateAdminStats();
             } else {
                 uv.classList.remove('hidden'); av.classList.add('hidden');
                 switchTxt.innerText = "Dashboard"; switchIcon.className = "fas fa-tools text-[10px] mr-1.5";
@@ -1316,25 +1665,38 @@ window.updateSosmedPrice = () => {
 
         window.renderAdminProducts = () => {
             const c = document.getElementById('admin-product-list'); c.innerHTML = '';
+            const search = (document.getElementById('admin-search-input')?.value || '').toLowerCase().trim();
             const cats = currentFilter === 'all' ? ['topup', 'sosmed', 'premium'] : [currentFilter];
+            let count = 0;
+
             cats.forEach(cat => {
-                storeData[cat].items.forEach(p => {
-                    c.innerHTML += `
-                    <div class="admin-card flex justify-between items-center">
-                        <div class="flex items-center gap-3">
-                            <img src="${getOptimizedUrl(p.imageUrl)}" class="w-10 h-10 rounded-lg object-cover">
-                            <div>
-                                <h3 class="font-black text-slate-800 text-[10px] uppercase">${p.name}</h3>
-                                <p class="text-[7px] text-slate-400 font-bold uppercase">${p.category}</p>
+                storeData[cat].items
+                    .filter(p => !search || (p.name || '').toLowerCase().includes(search) || (p.description || '').toLowerCase().includes(search))
+                    .forEach(p => {
+                        count++;
+                        c.innerHTML += `
+                        <div class="admin-card flex justify-between items-center">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <img src="${getOptimizedUrl(p.imageUrl)}" class="w-10 h-10 rounded-lg object-cover flex-shrink-0">
+                                <div class="min-w-0">
+                                    <h3 class="font-black text-slate-800 text-[10px] uppercase truncate">${p.name}</h3>
+                                    <div class="flex gap-1 mt-1 flex-wrap">
+                                        <p class="text-[7px] text-slate-400 font-bold uppercase">${p.category}</p>
+                                        ${p.bestSeller ? '<span class="text-[7px] font-black text-amber-500 uppercase">• Terlaris</span>' : ''}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex gap-2">
-                            <button onclick="window.editProduct('${p.category}', '${p.id}')" class="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center active:scale-90 transition-transform"><i class="fas fa-edit text-[10px]"></i></button>
-                            <button onclick="window.deleteProduct('${p.id}')" class="w-8 h-8 bg-red-50 text-red-500 rounded-xl flex items-center justify-center active:scale-90 transition-transform"><i class="fas fa-trash text-[10px]"></i></button>
-                        </div>
-                    </div>`;
-                });
+                            <div class="flex gap-2 flex-shrink-0">
+                                <button onclick="window.editProduct('${p.category}', '${p.id}')" class="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center active:scale-90 transition-transform"><i class="fas fa-edit text-[10px]"></i></button>
+                                <button onclick="window.deleteProduct('${p.id}')" class="w-8 h-8 bg-red-50 text-red-500 rounded-xl flex items-center justify-center active:scale-90 transition-transform"><i class="fas fa-trash text-[10px]"></i></button>
+                            </div>
+                        </div>`;
+                    });
             });
+
+            if (count === 0) {
+                c.innerHTML = `<p class="text-center text-slate-400 py-8 text-[10px] font-bold uppercase">Produk tidak ditemukan.</p>`;
+            }
         };
 
         // --- ADMIN CRUD ACTIONS ---
@@ -1343,7 +1705,7 @@ window.updateSosmedPrice = () => {
             document.getElementById('modal-title').innerText = "TAMBAH PRODUK";
             document.getElementById('edit-name').value = ''; document.getElementById('edit-image').value = ''; 
             document.getElementById('edit-albums-container').innerHTML = ''; document.getElementById('edit-sosmed-container').innerHTML = ''; 
-            document.getElementById('edit-desc').value = ''; toggleAdminBuilders(); 
+            document.getElementById('edit-desc').value = ''; document.getElementById('edit-best-seller').checked = false; toggleAdminBuilders(); 
             document.getElementById('modal-product').classList.remove('hidden'); 
             initDragula();
         };
@@ -1485,7 +1847,8 @@ window.addTierRange = (sid, min='', max='', price='', code='') => {
             const data = { 
                 name, category: cat, 
                 description: document.getElementById('edit-desc').value, 
-                imageUrl: document.getElementById('edit-image').value, 
+                imageUrl: document.getElementById('edit-image').value,
+                bestSeller: document.getElementById('edit-best-seller')?.checked || false,
                 updatedAt: Date.now() 
             };
 
@@ -1533,7 +1896,7 @@ window.addTierRange = (sid, min='', max='', price='', code='') => {
             currentEditId = { cat, pid };
             document.getElementById('modal-title').innerText = "EDIT: " + p.name.toUpperCase();
             document.getElementById('edit-name').value = p.name || ''; document.getElementById('edit-image').value = p.imageUrl || ''; 
-            document.getElementById('edit-cat').value = cat; document.getElementById('edit-desc').value = p.description || ''; 
+            document.getElementById('edit-cat').value = cat; document.getElementById('edit-desc').value = p.description || ''; document.getElementById('edit-best-seller').checked = !!p.bestSeller; 
             toggleAdminBuilders();
             if(cat === 'sosmed') {
                 document.getElementById('edit-sosmed-container').innerHTML = '';
@@ -1592,6 +1955,100 @@ window.addTierRange = (sid, min='', max='', price='', code='') => {
             } catch (err) { showToast("SANDI SALAH!"); }
         };
         window.logout = async () => { if (confirm("Logout Admin?")) { await signOut(auth); location.reload(); } };
+
+
+
+        window.openCaraOrderModal = () => {
+            document.getElementById('modal-cara-order').classList.remove('hidden');
+        };
+
+        window.closeCaraOrderModal = () => {
+            document.getElementById('modal-cara-order').classList.add('hidden');
+        };
+
+        // --- SEARCH, BEST SELLER, TESTIMONI, DASHBOARD ---
+        window.searchProducts = () => {
+            const input = document.getElementById('product-search-input');
+            globalSearchQuery = (input?.value || '').toLowerCase().trim();
+
+            if (!globalSearchQuery) {
+                document.getElementById('section-prod').classList.add('hidden');
+                document.getElementById('section-form').classList.add('hidden');
+                document.getElementById('bottom-bar').classList.add('hidden');
+                return;
+            }
+
+            activeCat = null;
+            activeProd = null;
+            activeVar = null;
+            document.querySelectorAll('.cat-card').forEach(el => el.classList.remove('selected-item'));
+
+            const results = [];
+            ['topup', 'sosmed', 'premium'].forEach(cat => {
+                storeData[cat].items.forEach(p => {
+                    const haystack = `${p.name || ''} ${p.description || ''} ${cat}`.toLowerCase();
+                    if (haystack.includes(globalSearchQuery)) results.push({ ...p, cat });
+                });
+            });
+
+            const section = document.getElementById('section-prod');
+            const list = document.getElementById('list-prod');
+            section.classList.remove('hidden');
+            document.getElementById('section-form').classList.add('hidden');
+            document.getElementById('bottom-bar').classList.add('hidden');
+            list.className = "grid grid-cols-2 gap-4";
+
+            if (results.length === 0) {
+                list.innerHTML = `<p class="col-span-2 text-center text-slate-400 py-10 text-[10px] font-bold uppercase">Produk tidak ditemukan.</p>`;
+                return;
+            }
+
+            list.innerHTML = results.map(p => `
+                <div onclick="window.changeCategory('${p.cat}'); setTimeout(() => window.changeProduct('${p.id}'), 200)" class="product-card-enhanced bg-white p-4 rounded-[2rem] border shadow-sm flex flex-col items-center cursor-pointer active:scale-95 transition-all">
+                    ${p.bestSeller ? '<div class="best-seller-badge">Terlaris</div>' : ''}
+                    <div class="img-container w-full mb-2"><img src="${getOptimizedUrl(p.imageUrl)}" class="w-full h-full object-cover"></div>
+                    <span class="font-black text-slate-800 text-[9px] text-center uppercase truncate w-full px-1">${p.name}</span>
+                    <div class="mt-1.5 bg-indigo-50 text-indigo-600 text-[7px] font-black px-3 py-1 rounded-full uppercase">${p.cat}</div>
+                </div>
+            `).join('');
+        };
+
+        window.clearSearchProducts = () => {
+            const input = document.getElementById('product-search-input');
+            if (input) input.value = '';
+            globalSearchQuery = '';
+            resetToHome();
+        };
+
+        function getAllProducts() {
+            return ['topup', 'sosmed', 'premium'].flatMap(cat => storeData[cat].items.map(p => ({ ...p, cat })));
+        }
+
+        function renderBestSellerHome() {
+            const section = document.getElementById('best-seller-section');
+            const list = document.getElementById('best-seller-list');
+            if (!section || !list) return;
+
+            const products = getAllProducts().filter(p => p.bestSeller);
+            list.innerHTML = '';
+
+            if (products.length === 0) {
+                section.classList.add('hidden');
+                return;
+            }
+
+            section.classList.remove('hidden');
+            products.slice(0, 8).forEach(p => {
+                list.innerHTML += `
+                    <div onclick="window.changeCategory('${p.cat}'); setTimeout(() => window.changeProduct('${p.id}'), 250)" class="product-card-enhanced min-w-[145px] bg-white p-3 rounded-[1.7rem] border shadow-sm snap-start active:scale-95 transition-all cursor-pointer">
+                        <div class="best-seller-badge">Terlaris</div>
+                        <div class="img-container w-full mb-2"><img src="${getOptimizedUrl(p.imageUrl)}" class="w-full h-full object-cover"></div>
+                        <h4 class="text-[9px] font-black text-slate-800 uppercase truncate">${p.name}</h4>
+                        <p class="text-[7px] font-black text-indigo-500 uppercase mt-1">${p.cat}</p>
+                    </div>`;
+            });
+        }
+
 
         function renderPromoHome() { 
             const list = document.getElementById('promo-home-list'); 
@@ -1667,6 +2124,7 @@ window.addTierRange = (sid, min='', max='', price='', code='') => {
             const nextTheme = document.body.classList.contains('dark') ? 'light' : 'dark';
             applyTheme(nextTheme);
         };
+
 
 
         // --- HERO BANNER SLIDER ---
