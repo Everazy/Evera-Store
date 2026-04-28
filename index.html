@@ -371,6 +371,199 @@ body.dark #theme-toggle {
     color: #facc15 !important;
 }
 
+
+/* === HERO BANNER / SLIDER EVERASTORE === */
+.hero-banner-section {
+    margin-bottom: 2rem;
+}
+
+.hero-banner {
+    position: relative;
+    width: 100%;
+    height: 170px;
+    overflow: hidden;
+    border-radius: 2rem;
+    background: #e2e8f0;
+    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+    user-select: none;
+    touch-action: pan-y;
+}
+
+.hero-banner-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.45s ease;
+    will-change: transform;
+}
+
+.hero-slide {
+    min-width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(15,23,42,0.62) 0%, rgba(15,23,42,0.30) 48%, rgba(15,23,42,0.08) 100%);
+}
+
+.hero-content {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    z-index: 2;
+    color: #ffffff;
+    max-width: 72%;
+}
+
+.hero-content h3 {
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.hero-content p {
+    font-size: 10px;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+}
+
+.hero-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.hero-arrow:hover {
+    background: rgba(255,255,255,0.35);
+}
+
+.hero-arrow:active {
+    transform: translateY(-50%) scale(0.92);
+}
+
+.hero-arrow.prev {
+    left: 12px;
+}
+
+.hero-arrow.next {
+    right: 12px;
+}
+
+.hero-dots {
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    transform: translateX(-50%);
+    z-index: 5;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.hero-dot {
+    width: 8px;
+    height: 8px;
+    border: none;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.45);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    padding: 0;
+}
+
+.hero-dot.active {
+    width: 24px;
+    background: #ffffff;
+}
+
+body.dark .hero-banner {
+    background: #1e293b;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+}
+
+@media (max-width: 480px) {
+    .hero-banner {
+        height: 155px;
+        border-radius: 1.8rem;
+    }
+
+    .hero-content {
+        left: 18px;
+        bottom: 18px;
+        max-width: 76%;
+    }
+
+    .hero-content h3 {
+        font-size: 12px;
+    }
+
+    .hero-content p {
+        font-size: 9px;
+    }
+
+    .hero-arrow {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .hero-banner {
+        height: 220px;
+        border-radius: 2.5rem;
+    }
+
+    .hero-content {
+        left: 30px;
+        bottom: 30px;
+        max-width: 62%;
+    }
+
+    .hero-content h3 {
+        font-size: 20px;
+    }
+
+    .hero-content p {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-banner {
+        height: 250px;
+    }
+
+    .hero-content h3 {
+        font-size: 24px;
+    }
+}
+
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -411,6 +604,55 @@ body.dark #theme-toggle {
 
     <!-- Tampilan User -->
     <main id="user-view" class="app-shell p-5 lg:p-8 pb-40">
+
+        <!-- Hero Banner Slider -->
+        <section class="hero-banner-section">
+            <div id="hero-banner" class="hero-banner" aria-label="Banner promo Everastore">
+                <div class="hero-banner-track">
+                    <div class="hero-slide">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop" alt="Banner Everastore New Update">
+                        <div class="hero-overlay"></div>
+                        <div class="hero-content">
+                            <h3>Everastore New Update</h3>
+                            <p>Tampilan katalog lebih fresh, responsif, dan nyaman untuk pelanggan.</p>
+                        </div>
+                    </div>
+
+                    <div class="hero-slide">
+                        <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?q=80&w=1600&auto=format&fit=crop" alt="Banner Premium Digital">
+                        <div class="hero-overlay"></div>
+                        <div class="hero-content">
+                            <h3>Premium Digital</h3>
+                            <p>Game, sosmed, dan layanan premium tersusun rapi dalam satu katalog.</p>
+                        </div>
+                    </div>
+
+                    <div class="hero-slide">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1600&auto=format&fit=crop" alt="Banner Fast Order">
+                        <div class="hero-overlay"></div>
+                        <div class="hero-content">
+                            <h3>Fast Order</h3>
+                            <p>Pilih produk lebih cepat dengan tampilan HP dan laptop yang optimal.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="hero-arrow prev" type="button" aria-label="Banner sebelumnya">
+                    <i class="fas fa-chevron-left text-[11px]"></i>
+                </button>
+
+                <button class="hero-arrow next" type="button" aria-label="Banner berikutnya">
+                    <i class="fas fa-chevron-right text-[11px]"></i>
+                </button>
+
+                <div class="hero-dots" aria-label="Navigasi banner">
+                    <button class="hero-dot active" type="button" data-slide="0" aria-label="Banner 1"></button>
+                    <button class="hero-dot" type="button" data-slide="1" aria-label="Banner 2"></button>
+                    <button class="hero-dot" type="button" data-slide="2" aria-label="Banner 3"></button>
+                </div>
+            </div>
+        </section>
+
         <!-- Section 01: Kategori -->
         <section class="mb-8">
             <h2 class="text-[10px] font-black text-slate-400 mb-4 uppercase tracking-[0.2em]">01. Pilih Kategori</h2>
@@ -1459,10 +1701,129 @@ window.addTierRange = (sid, min='', max='', price='', code='') => {
             applyTheme(nextTheme);
         };
 
+
+        // --- HERO BANNER SLIDER ---
+        function initHeroBanner() {
+            const banner = document.getElementById('hero-banner');
+            if (!banner || banner.dataset.ready === 'true') return;
+            banner.dataset.ready = 'true';
+
+            const track = banner.querySelector('.hero-banner-track');
+            const slides = banner.querySelectorAll('.hero-slide');
+            const dots = banner.querySelectorAll('.hero-dot');
+            const prevBtn = banner.querySelector('.hero-arrow.prev');
+            const nextBtn = banner.querySelector('.hero-arrow.next');
+
+            let currentIndex = 0;
+            let autoSlide = null;
+            let startX = 0;
+            let endX = 0;
+            let isDragging = false;
+
+            const totalSlides = slides.length;
+            const intervalTime = 4000;
+
+            function updateSlider() {
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+
+            function goToSlide(index) {
+                currentIndex = index;
+                if (currentIndex >= totalSlides) currentIndex = 0;
+                if (currentIndex < 0) currentIndex = totalSlides - 1;
+                updateSlider();
+            }
+
+            function nextSlide() {
+                goToSlide(currentIndex + 1);
+            }
+
+            function prevSlide() {
+                goToSlide(currentIndex - 1);
+            }
+
+            function stopAutoSlide() {
+                if (autoSlide) clearInterval(autoSlide);
+            }
+
+            function startAutoSlide() {
+                stopAutoSlide();
+                autoSlide = setInterval(nextSlide, intervalTime);
+            }
+
+            function handleSwipe() {
+                const diff = startX - endX;
+                if (Math.abs(diff) < 50) return;
+
+                if (diff > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    nextSlide();
+                    startAutoSlide();
+                });
+            }
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    prevSlide();
+                    startAutoSlide();
+                });
+            }
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                    startAutoSlide();
+                });
+            });
+
+            banner.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                stopAutoSlide();
+            }, { passive: true });
+
+            banner.addEventListener('touchend', (e) => {
+                endX = e.changedTouches[0].clientX;
+                handleSwipe();
+                startAutoSlide();
+            }, { passive: true });
+
+            banner.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                startX = e.clientX;
+                stopAutoSlide();
+            });
+
+            window.addEventListener('mouseup', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                endX = e.clientX;
+                handleSwipe();
+                startAutoSlide();
+            });
+
+            banner.addEventListener('mouseenter', stopAutoSlide);
+            banner.addEventListener('mouseleave', startAutoSlide);
+
+            updateSlider();
+            startAutoSlide();
+        }
+
+
         // Load theme on start
         const savedTheme = localStorage.getItem('theme');
         const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         applyTheme(savedTheme || (systemPrefersDark ? 'dark' : 'light'));
+        initHeroBanner();
         updateFloatingButtons();
     </script>
 </body>
