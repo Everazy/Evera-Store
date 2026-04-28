@@ -379,7 +379,7 @@ body.dark #theme-toggle {
 .hero-banner {
     position: relative;
     width: 100%;
-    height: 180px; /* ukuran tinggi disamakan untuk HP dan laptop */
+    aspect-ratio: 16 / 5; /* rasio banner sama di HP dan laptop */
     overflow: hidden;
     border-radius: 2rem;
     background: #e2e8f0;
@@ -425,7 +425,7 @@ body.dark #theme-toggle {
 .hero-content {
     position: absolute;
     left: 18px;
-    bottom: 20px;
+    bottom: 18px;
     z-index: 2;
     color: white;
     max-width: 74%;
@@ -518,30 +518,17 @@ body.dark .hero-banner {
 
 @media (min-width: 768px) {
     .hero-banner {
-        height: 180px; /* tetap sama seperti HP */
-        border-radius: 2.5rem;
-    }
-
-    .hero-content {
-        left: 28px;
-        bottom: 28px;
-        max-width: 58%;
-    }
-
-    .hero-content h3 {
-        font-size: 20px;
-    }
-
-    .hero-content p {
-        font-size: 12px;
+        aspect-ratio: 16 / 5; /* tetap sama */
+        border-radius: 2rem;
     }
 }
 
 @media (min-width: 1024px) {
     .hero-banner {
-        height: 180px; /* tetap sama seperti HP */
+        aspect-ratio: 16 / 5; /* tetap sama */
     }
 }
+
 
     </style>
 </head>
