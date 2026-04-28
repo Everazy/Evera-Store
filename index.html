@@ -281,6 +281,96 @@
     }
 }
 
+
+/* === NIGHT / DAY MODE FINAL === */
+body.dark {
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
+}
+
+body.dark nav,
+body.dark .bg-white,
+body.dark .admin-card,
+body.dark .product-desc-card,
+body.dark #bottom-bar,
+body.dark #modal-login > div,
+body.dark #modal-checkout > div,
+body.dark #modal-product > div,
+body.dark #modal-confirm-delete > div {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+body.dark .bg-slate-50,
+body.dark .bg-slate-100 {
+    background-color: #334155 !important;
+}
+
+body.dark .bg-indigo-50,
+body.dark .bg-indigo-50\/50 {
+    background-color: rgba(67, 56, 202, 0.22) !important;
+}
+
+body.dark .text-slate-900,
+body.dark .text-slate-800,
+body.dark .text-slate-700 {
+    color: #f8fafc !important;
+}
+
+body.dark .text-slate-500,
+body.dark .text-slate-400,
+body.dark .text-slate-300 {
+    color: #cbd5e1 !important;
+}
+
+body.dark .border,
+body.dark .border-b,
+body.dark .border-t,
+body.dark .border-slate-100,
+body.dark .border-slate-200,
+body.dark .border-indigo-100 {
+    border-color: #334155 !important;
+}
+
+body.dark input,
+body.dark textarea,
+body.dark select {
+    background-color: #334155 !important;
+    color: #f8fafc !important;
+    border-color: #475569 !important;
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+    color: #94a3b8 !important;
+}
+
+body.dark .selected-item {
+    background-color: rgba(79, 70, 229, 0.18) !important;
+    border-color: #818cf8 !important;
+    box-shadow: 0 18px 45px -18px rgba(129, 140, 248, 0.45) !important;
+}
+
+body.dark .img-container {
+    background-color: #0f172a !important;
+}
+
+body.dark .floating-btn.secondary {
+    background-color: #1e293b !important;
+    color: #c7d2fe !important;
+    border-color: #334155 !important;
+}
+
+body.dark .loading-screen {
+    background-color: #0f172a !important;
+}
+
+body.dark #theme-toggle {
+    background-color: #312e81 !important;
+    color: #facc15 !important;
+}
+
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -1348,26 +1438,31 @@ window.addTierRange = (sid, min='', max='', price='', code='') => {
             });
         }
 
-        window.toggleTheme = () => {
-            const body = document.body;
+        function applyTheme(theme) {
+            const isDark = theme === 'dark';
+            document.documentElement.classList.toggle('dark', isDark);
+            document.body.classList.toggle('dark', isDark);
+
             const toggle = document.getElementById('theme-toggle');
-            const icon = toggle.querySelector('i');
-            if (body.classList.contains('dark')) {
-                body.classList.remove('dark');
-                icon.className = 'fas fa-moon text-[12px]';
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.classList.add('dark');
-                icon.className = 'fas fa-sun text-[12px]';
-                localStorage.setItem('theme', 'dark');
+            if (toggle) {
+                const icon = toggle.querySelector('i');
+                if (icon) icon.className = isDark ? 'fas fa-sun text-[12px]' : 'fas fa-moon text-[12px]';
+                toggle.setAttribute('aria-label', isDark ? 'Aktifkan day mode' : 'Aktifkan night mode');
+                toggle.setAttribute('title', isDark ? 'Day mode' : 'Night mode');
             }
+
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        window.toggleTheme = () => {
+            const nextTheme = document.body.classList.contains('dark') ? 'light' : 'dark';
+            applyTheme(nextTheme);
         };
 
         // Load theme on start
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark');
-            document.getElementById('theme-toggle').querySelector('i').className = 'fas fa-sun text-[12px]';
-        }
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        applyTheme(savedTheme || (systemPrefersDark ? 'dark' : 'light'));
         updateFloatingButtons();
     </script>
 </body>
