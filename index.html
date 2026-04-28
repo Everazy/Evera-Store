@@ -891,7 +891,7 @@ body.dark .quick-link-green {
         <!-- Link Cepat -->
         <section class="mb-8">
             <div class="grid grid-cols-3 gap-3">
-                <a id="google-drive-testimonial-link" href="https://drive.google.com/drive/folders/1J2REaUaDImUBaTf0kpGvGpTYe2b2GB4n?usp=drive_link" target="_blank" class="quick-link-card">
+                <a id="google-drive-testimonial-link" href="ISI_LINK_GOOGLE_DRIVE_TESTIMONI" target="_blank" class="quick-link-card">
                     <div class="quick-link-icon quick-link-blue">
                         <i class="fab fa-google-drive text-lg"></i>
                     </div>
@@ -907,7 +907,7 @@ body.dark .quick-link-green {
                     <p class="text-[7px] font-bold text-slate-400 uppercase leading-relaxed mt-1">Promo & update</p>
                 </a>
 
-                <a id="secreto-testimonial-link" href="https://secreto.site/awspz7" target="_blank" class="quick-link-card">
+                <a id="secreto-testimonial-link" href="ISI_LINK_SECRETO_KAMU" target="_blank" class="quick-link-card">
                     <div class="quick-link-icon quick-link-indigo">
                         <i class="fas fa-comment-dots text-lg"></i>
                     </div>
@@ -2047,6 +2047,38 @@ window.addTierRange = (sid, min='', max='', price='', code='') => {
                         <p class="text-[7px] font-black text-indigo-500 uppercase mt-1">${p.cat}</p>
                     </div>`;
             });
+        }
+
+
+
+        function updateAdminStats() {
+            const statTotal = document.getElementById('stat-total-products');
+            const statPromo = document.getElementById('stat-total-promos');
+            const statBest = document.getElementById('stat-total-best');
+
+            const products = ['topup', 'sosmed', 'premium'].flatMap(cat => {
+                const items = storeData?.[cat]?.items || [];
+                return items.map(p => ({ ...p, cat }));
+            });
+
+            let promoCount = 0;
+
+            products.forEach(p => {
+                if (p.category === 'sosmed' || p.cat === 'sosmed') {
+                    promoCount += (p.subServices || []).filter(s => s && s.promo && s.active !== false).length;
+                } else {
+                    promoCount += (p.albums || []).reduce((total, album) => {
+                        if (!album || album.active === false) return total;
+                        return total + (album.items || []).filter(v => v && v.promo && v.active !== false).length;
+                    }, 0);
+                }
+            });
+
+            const bestCount = products.filter(p => p.bestSeller === true).length;
+
+            if (statTotal) statTotal.innerText = products.length.toLocaleString('id-ID');
+            if (statPromo) statPromo.innerText = promoCount.toLocaleString('id-ID');
+            if (statBest) statBest.innerText = bestCount.toLocaleString('id-ID');
         }
 
 
