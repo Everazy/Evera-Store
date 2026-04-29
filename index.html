@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js"></script>
+    <!-- Midtrans Snap Sandbox. Ganti client key di bawah ini. -->
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="ISI_CLIENT_KEY_MIDTRANS_KAMU"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         
@@ -770,6 +772,102 @@ body.dark .quick-link-green {
     color: #c7d2fe !important;
 }
 
+/* === HELP MENU FINAL === */
+.help-menu-card {
+    text-decoration: none;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1.6rem;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    width: 100%;
+    text-align: left;
+}
+
+.help-menu-card:hover {
+    border-color: #c7d2fe;
+    box-shadow: 0 12px 28px rgba(79, 70, 229, 0.10);
+    transform: translateY(-1px);
+}
+
+.help-menu-card:active {
+    transform: scale(0.98);
+}
+
+.help-menu-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.help-view {
+    display: none;
+}
+
+.help-view.active {
+    display: block;
+}
+
+body.dark .help-menu-card {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+/* === PAYMENT GATEWAY MODAL FINAL === */
+.payment-method-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1.5rem;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+}
+.payment-method-card:hover {
+    border-color: #818cf8;
+    box-shadow: 0 10px 24px rgba(79, 70, 229, 0.10);
+    transform: translateY(-1px);
+}
+.payment-method-card.active {
+    border-color: #4f46e5;
+    background: #eef2ff;
+    box-shadow: 0 12px 28px rgba(79, 70, 229, 0.16);
+}
+.payment-method-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 1rem;
+    background: #eef2ff;
+    color: #4f46e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+body.dark .payment-method-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+body.dark .payment-method-card.active {
+    background: rgba(79, 70, 229, 0.20) !important;
+    border-color: #818cf8 !important;
+}
+body.dark .payment-method-icon {
+    background: rgba(79, 70, 229, 0.25) !important;
+    color: #c7d2fe !important;
+}
+
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -868,19 +966,16 @@ body.dark .quick-link-green {
                 </button>
             </div>
         </section>
-
-
-
-        <!-- Tombol Cara Order -->
+        <!-- Tombol Bantuan / Help -->
         <section class="mb-8">
-            <button onclick="openCaraOrderModal()" type="button" class="w-full bg-white border border-indigo-100 rounded-[2rem] p-5 shadow-sm flex items-center justify-between active:scale-[0.98] transition-all">
+            <button onclick="openHelpModal()" type="button" class="w-full bg-white border border-indigo-100 rounded-[2rem] p-5 shadow-sm flex items-center justify-between active:scale-[0.98] transition-all">
                 <div class="flex items-center gap-4 text-left">
                     <div class="w-11 h-11 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
-                        <i class="fas fa-list-check text-sm"></i>
+                        <i class="fas fa-circle-question text-sm"></i>
                     </div>
                     <div>
-                        <h2 class="text-[10px] font-black text-slate-800 uppercase tracking-[0.15em]">Cara Order</h2>
-                        <p class="text-[8px] font-bold text-slate-400 uppercase mt-0.5">Klik untuk melihat panduan singkat</p>
+                        <h2 class="text-[10px] font-black text-slate-800 uppercase tracking-[0.15em]">Bantuan / Help</h2>
+                        <p class="text-[8px] font-bold text-slate-400 uppercase mt-0.5">Cara order dan istilah store</p>
                     </div>
                 </div>
                 <i class="fas fa-chevron-right text-indigo-400 text-xs"></i>
@@ -1002,45 +1097,89 @@ body.dark .quick-link-green {
     </main>
 
 
-    <!-- Modal Cara Order -->
-    <div id="modal-cara-order" class="fixed inset-0 z-[72] flex items-end sm:items-center justify-center p-0 sm:p-6 bg-slate-900/60 backdrop-blur-sm hidden">
+
+
+    <!-- Modal Bantuan / Help -->
+    <div id="modal-help" class="fixed inset-0 z-[72] flex items-end sm:items-center justify-center p-0 sm:p-6 bg-slate-900/60 backdrop-blur-sm hidden">
         <div class="bg-white w-full max-w-md rounded-t-[2.5rem] sm:rounded-[2.5rem] shadow-2xl flex flex-col max-h-[95vh] overflow-hidden">
             <div class="p-6 border-b flex justify-between items-center">
-                <h3 class="font-black text-indigo-600 uppercase tracking-[0.15em] text-[11px]">Cara Order</h3>
-                <button onclick="closeCaraOrderModal()" class="text-slate-300 w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-50 transition-colors">
+                <div class="flex items-center gap-3">
+                    <button id="help-back-btn" onclick="showHelpMenu()" class="hidden text-indigo-500 w-8 h-8 rounded-full bg-indigo-50 items-center justify-center hover:bg-indigo-100 transition-colors">
+                        <i class="fas fa-chevron-left text-xs"></i>
+                    </button>
+                    <h3 id="help-modal-title" class="font-black text-indigo-600 uppercase tracking-[0.15em] text-[11px]">Bantuan / Help</h3>
+                </div>
+                <button onclick="closeHelpModal()" class="text-slate-300 w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-50 transition-colors">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="modal-body p-6 space-y-4">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <h3 class="text-[9px] font-black text-slate-800 uppercase mb-1">Pilih Kategori</h3>
-                    <p class="text-[8px] font-bold text-slate-400 leading-relaxed">Pilih kategori Game, Sosmed, atau Premium sesuai kebutuhan.</p>
+
+            <div class="modal-body p-6">
+                <!-- Menu Utama Help -->
+                <div id="help-menu-view" class="help-view active space-y-3">
+                    <button onclick="showHelpView('cara')" type="button" class="help-menu-card">
+                        <div class="help-menu-icon bg-indigo-50 text-indigo-600">
+                            <i class="fas fa-list-check text-sm"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-[10px] font-black text-slate-800 uppercase tracking-[0.12em]">Cara Order</h4>
+                            <p class="text-[8px] font-bold text-slate-400 uppercase mt-1">Panduan belanja dari awal sampai WhatsApp</p>
+                        </div>
+                        <i class="fas fa-chevron-right text-indigo-300 text-xs"></i>
+                    </button>
+
+                    <a href="ISI_LINK_ISTILAH_STORE" target="_blank" class="help-menu-card">
+                        <div class="help-menu-icon bg-blue-50 text-blue-600">
+                            <i class="fas fa-book-open text-sm"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-[10px] font-black text-slate-800 uppercase tracking-[0.12em]">Istilah Store</h4>
+                            <p class="text-[8px] font-bold text-slate-400 uppercase mt-1">Penjelasan istilah produk</p>
+                        </div>
+                        <i class="fas fa-arrow-up-right-from-square text-indigo-300 text-xs"></i>
+                    </a>
+
+                    <a href="ISI_LINK_FAQ_EVERASTORE" target="_blank" class="help-menu-card">
+                        <div class="help-menu-icon bg-amber-50 text-amber-500">
+                            <i class="fas fa-circle-info text-sm"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-[10px] font-black text-slate-800 uppercase tracking-[0.12em]">FAQ Everastore</h4>
+                            <p class="text-[8px] font-bold text-slate-400 uppercase mt-1">Pertanyaan umum Everastore</p>
+                        </div>
+                        <i class="fas fa-arrow-up-right-from-square text-indigo-300 text-xs"></i>
+                    </a>
                 </div>
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <h3 class="text-[9px] font-black text-slate-800 uppercase mb-1">Pilih Produk</h3>
-                    <p class="text-[8px] font-bold text-slate-400 leading-relaxed">Klik produk, lalu pilih paket atau layanan yang ingin dibeli.</p>
+
+                <!-- Halaman Cara Order -->
+                <div id="help-cara-view" class="help-view space-y-3">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3 class="text-[9px] font-black text-slate-800 uppercase mb-1">Pilih Kategori</h3>
+                        <p class="text-[8px] font-bold text-slate-400 leading-relaxed">Pilih kategori Game, Sosmed, atau Premium sesuai kebutuhan.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3 class="text-[9px] font-black text-slate-800 uppercase mb-1">Pilih Produk</h3>
+                        <p class="text-[8px] font-bold text-slate-400 leading-relaxed">Klik produk, lalu pilih paket atau layanan yang ingin dibeli.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3 class="text-[9px] font-black text-slate-800 uppercase mb-1">Isi Data</h3>
+                        <p class="text-[8px] font-bold text-slate-400 leading-relaxed">Masukkan ID, server, email, link, atau catatan tambahan jika diperlukan.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3 class="text-[9px] font-black text-slate-800 uppercase mb-1">Konfirmasi WhatsApp</h3>
+                        <p class="text-[8px] font-bold text-slate-400 leading-relaxed">Tekan tombol beli, cek pesanan, lalu lanjutkan ke WhatsApp admin.</p>
+                    </div>
                 </div>
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <h3 class="text-[9px] font-black text-slate-800 uppercase mb-1">Isi Data</h3>
-                    <p class="text-[8px] font-bold text-slate-400 leading-relaxed">Masukkan ID, server, email, link, atau catatan tambahan jika diperlukan.</p>
+                        <i class="fas fa-arrow-up-right-from-square text-indigo-400 text-xs ml-3"></i>
+                    </a>
                 </div>
-                <div class="step-card">
-                    <div class="step-number">4</div>
-                    <h3 class="text-[9px] font-black text-slate-800 uppercase mb-1">Konfirmasi WhatsApp</h3>
-                    <p class="text-[8px] font-bold text-slate-400 leading-relaxed">Tekan tombol beli, cek pesanan, lalu lanjutkan ke WhatsApp admin.</p>
-                </div>
-            </div>
-            <div class="p-6 border-t bg-slate-50">
-                <button onclick="closeCaraOrderModal()" class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-black text-[11px] uppercase shadow-lg shadow-indigo-100 active:scale-[0.98] transition-all">
-                    Saya Mengerti
-                </button>
             </div>
         </div>
     </div>
-
 
     <!-- Modal Login -->
     <div id="modal-login" class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-900/60 backdrop-blur-sm hidden">
@@ -1050,7 +1189,7 @@ body.dark .quick-link-green {
                 <input type="email" id="admin-email" placeholder="Email Admin" class="w-full bg-slate-50 border p-4 rounded-xl outline-none text-center font-bold text-xs">
                 <input type="password" id="admin-pw" onkeyup="handleAdminKey(event)" placeholder="Password" class="w-full bg-slate-50 border p-4 rounded-xl outline-none text-center font-bold text-xs">
             </div>
-            <button onclick="checkPassword()" class="w-full bg-indigo-600 text-white py-3.5 rounded-xl font-black text-[10px] uppercase shadow-lg">Login</button>
+            <button onclick="checkPassword()" class="w-full bg-indigo-600 text-white py-3.5 rounded-xl font-black text-[10px] uppercase shadow-lg">Login</a>
             <button onclick="hideLogin()" class="w-full py-2 mt-2 text-[8px] font-bold text-slate-300 uppercase">Tutup</button>
         </div>
     </div>
@@ -1121,6 +1260,61 @@ body.dark .quick-link-green {
             <div class="p-6 border-t bg-slate-50 flex gap-3">
                 <button onclick="saveProduct()" id="btn-save-prod" class="flex-1 bg-indigo-600 text-white py-4 rounded-xl font-black text-[10px] uppercase shadow-lg shadow-indigo-100">Simpan</button>
                 <button onclick="closeProductModal()" class="flex-1 bg-white border border-slate-200 text-slate-400 py-4 rounded-xl font-black text-[10px] uppercase">Batal</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal Payment Gateway -->
+    <div id="modal-payment" class="fixed inset-0 z-[75] flex items-end sm:items-center justify-center p-0 sm:p-6 bg-slate-900/60 backdrop-blur-sm hidden">
+        <div class="bg-white w-full max-w-md rounded-t-[2.5rem] sm:rounded-[2.5rem] shadow-2xl flex flex-col max-h-[95vh] overflow-hidden">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 class="font-black text-indigo-600 uppercase tracking-[0.15em] text-[11px]">Pembayaran</h3>
+                <button onclick="closePaymentModal()" class="text-slate-300 w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-50 transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body p-6 space-y-5">
+                <div class="bg-indigo-50/50 p-4 rounded-[1.5rem]">
+                    <p class="text-[8px] font-black text-indigo-400 uppercase tracking-[0.2em] mb-1">Order ID</p>
+                    <p id="payment-order-id" class="text-xs font-black text-slate-800 break-all">-</p>
+                    <div class="mt-3 flex justify-between items-center">
+                        <span class="text-[9px] font-black text-slate-400 uppercase">Total Bayar</span>
+                        <span id="payment-total-price" class="text-lg font-black text-indigo-600">Rp 0</span>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Metode Pembayaran</p>
+                    <div class="space-y-3">
+                        <div class="payment-method-card active" data-method="midtrans" onclick="selectPaymentMethod('midtrans')">
+                            <div class="payment-method-icon"><i class="fas fa-qrcode text-lg"></i></div>
+                            <div>
+                                <p class="text-[11px] font-black text-slate-800 uppercase">QRIS / GoPay / E-Wallet</p>
+                                <p class="text-[8px] font-bold text-slate-400 uppercase">Otomatis via Midtrans Snap</p>
+                            </div>
+                        </div>
+                        <div class="payment-method-card" data-method="whatsapp" onclick="selectPaymentMethod('whatsapp')">
+                            <div class="payment-method-icon"><i class="fab fa-whatsapp text-lg"></i></div>
+                            <div>
+                                <p class="text-[11px] font-black text-slate-800 uppercase">WhatsApp Manual</p>
+                                <p class="text-[8px] font-bold text-slate-400 uppercase">Backup jika gateway belum aktif</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="payment-status-box" class="hidden bg-slate-50 p-4 rounded-[1.5rem] border">
+                    <p class="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Status</p>
+                    <p id="payment-status-text" class="text-[11px] font-black text-slate-800 uppercase">Menunggu pembayaran...</p>
+                </div>
+            </div>
+            <div class="p-6 border-t bg-slate-50 space-y-3">
+                <button id="btn-pay-now" onclick="payNow()" class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-black text-[11px] uppercase shadow-lg shadow-indigo-100 active:scale-[0.98] transition-all">
+                    Bayar Sekarang
+                </button>
+                <button onclick="checkPaymentStatus()" class="w-full bg-white border border-slate-200 text-slate-500 py-3 rounded-2xl font-black text-[9px] uppercase active:scale-[0.98] transition-all">
+                    Cek Status Pembayaran
+                </button>
             </div>
         </div>
     </div>
@@ -1601,12 +1795,10 @@ window.updateSosmedPrice = () => {
                 showToast("ISI ID AKUN!");
                 return;
             }
-
             if (fac && (!fac.value.trim() || !fpw.value.trim())) {
                 showToast("ISI EMAIL/HP DAN PASSWORD!");
                 return;
             }
-
             if (finv && !finv.value.trim()) {
                 showToast(activeProd.category === 'sosmed' ? "ISI LINK!" : "ISI EMAIL!");
                 return;
@@ -1620,8 +1812,8 @@ window.updateSosmedPrice = () => {
                 note += `[${inviteLabel}: ${finv.value}]`;
             }
 
-            const prodCode = activeProd.category === 'sosmed' 
-                ? (currentSocialTier?.code || 'SOS') 
+            const prodCode = activeProd.category === 'sosmed'
+                ? (currentSocialTier?.code || 'SOS')
                 : (activeVar.code || 'VAR');
 
             const qty = activeProd.category === 'sosmed'
@@ -1633,9 +1825,167 @@ window.updateSosmedPrice = () => {
             const addNote = document.getElementById('final-note')?.value;
             if(addNote) note += " | " + addNote;
 
-            const msg = `.buy ${prodCode} | ${qty} | ${note || '-'}`;
-            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+            let totalPrice = 0;
+            let itemName = "";
+            let variantName = "";
+
+            if (activeProd.category === 'sosmed') {
+                totalPrice = socialPrice;
+                itemName = activeProd.name;
+                variantName = currentSocialService?.name || "Layanan Sosmed";
+            } else {
+                const basePrice = parseFloat(activeVar?.p) || 0;
+                const finalQty = activeProd.category === 'premium'
+                    ? parseInt(document.getElementById('final-qty')?.value || 1)
+                    : 1;
+                totalPrice = basePrice * finalQty;
+                itemName = activeProd.name;
+                variantName = activeVar?.n || "Paket";
+            }
+
+            const orderId = `EVR-${Date.now()}`;
+            const waMessage = `.buy ${prodCode} | ${qty} | ${note || '-'}`;
+
+            pendingPaymentOrder = {
+                order_id: orderId,
+                gross_amount: totalPrice,
+                product_name: `${itemName} - ${variantName}`,
+                customer_note: note || "-",
+                whatsapp_message: waMessage,
+                quantity: parseInt(qty) || 1,
+                product_code: prodCode,
+                product_category: activeProd.category,
+                product_image: activeProd.imageUrl || "",
+                created_at: new Date().toISOString()
+            };
+
+            document.getElementById('modal-checkout').classList.add('hidden');
+            openPaymentModal(pendingPaymentOrder);
         };
+
+
+        // --- PAYMENT GATEWAY LOGIC ---
+        // Ganti URL ini menjadi URL backend kamu saat sudah hosting, contoh: https://everastore-api.vercel.app
+        const PAYMENT_API_BASE_URL = "";
+        let pendingPaymentOrder = null;
+        let selectedPaymentMethod = "midtrans";
+
+        window.openPaymentModal = (order) => {
+            pendingPaymentOrder = order;
+            document.getElementById('payment-order-id').innerText = order.order_id;
+            document.getElementById('payment-total-price').innerText = `Rp ${Number(order.gross_amount || 0).toLocaleString('id-ID')}`;
+            document.getElementById('payment-status-box').classList.add('hidden');
+            document.getElementById('payment-status-text').innerText = "Menunggu pembayaran...";
+            document.getElementById('modal-payment').classList.remove('hidden');
+        };
+
+        window.closePaymentModal = () => {
+            document.getElementById('modal-payment').classList.add('hidden');
+        };
+
+        window.selectPaymentMethod = (method) => {
+            selectedPaymentMethod = method;
+            document.querySelectorAll('.payment-method-card').forEach(card => {
+                card.classList.toggle('active', card.dataset.method === method);
+            });
+        };
+
+        async function createMidtransTransaction(order) {
+            const response = await fetch(`${PAYMENT_API_BASE_URL}/api/create-payment`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(order)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(errorText || "Gagal membuat transaksi");
+            }
+
+            return response.json();
+        }
+
+        window.payNow = async () => {
+            if (!pendingPaymentOrder) {
+                showToast("ORDER TIDAK DITEMUKAN!");
+                return;
+            }
+
+            if (selectedPaymentMethod === "whatsapp") {
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(pendingPaymentOrder.whatsapp_message)}`, '_blank');
+                return;
+            }
+
+            try {
+                showToast("MEMBUAT PEMBAYARAN...");
+                document.getElementById('btn-pay-now').disabled = true;
+                document.getElementById('btn-pay-now').classList.add('opacity-50');
+
+                const payment = await createMidtransTransaction(pendingPaymentOrder);
+
+                if (!payment.token) {
+                    throw new Error("Token pembayaran tidak diterima dari server");
+                }
+
+                window.snap.pay(payment.token, {
+                    onSuccess: function(result) {
+                        document.getElementById('payment-status-box').classList.remove('hidden');
+                        document.getElementById('payment-status-text').innerText = "Pembayaran berhasil. Pesanan siap diproses.";
+                        showToast("PEMBAYARAN BERHASIL!");
+                        console.log("Midtrans success:", result);
+                    },
+                    onPending: function(result) {
+                        document.getElementById('payment-status-box').classList.remove('hidden');
+                        document.getElementById('payment-status-text').innerText = "Menunggu pembayaran.";
+                        showToast("MENUNGGU PEMBAYARAN");
+                        console.log("Midtrans pending:", result);
+                    },
+                    onError: function(result) {
+                        document.getElementById('payment-status-box').classList.remove('hidden');
+                        document.getElementById('payment-status-text').innerText = "Pembayaran gagal.";
+                        showToast("PEMBAYARAN GAGAL!");
+                        console.log("Midtrans error:", result);
+                    },
+                    onClose: function() {
+                        showToast("PAYMENT DITUTUP");
+                    }
+                });
+            } catch (err) {
+                console.error("Payment Error:", err);
+                showToast("GATEWAY BELUM AKTIF / SERVER ERROR");
+                document.getElementById('payment-status-box').classList.remove('hidden');
+                document.getElementById('payment-status-text').innerText = "Gateway belum aktif. Pastikan backend dan Midtrans key sudah benar.";
+            } finally {
+                document.getElementById('btn-pay-now').disabled = false;
+                document.getElementById('btn-pay-now').classList.remove('opacity-50');
+            }
+        };
+
+        window.checkPaymentStatus = async () => {
+            if (!pendingPaymentOrder) {
+                showToast("ORDER TIDAK DITEMUKAN!");
+                return;
+            }
+
+            try {
+                showToast("CEK STATUS...");
+                const response = await fetch(`${PAYMENT_API_BASE_URL}/api/payment-status/${pendingPaymentOrder.order_id}`);
+
+                if (!response.ok) {
+                    throw new Error("Gagal cek status");
+                }
+
+                const status = await response.json();
+                document.getElementById('payment-status-box').classList.remove('hidden');
+                document.getElementById('payment-status-text').innerText = `Status: ${status.transaction_status || status.status_message || "Tidak diketahui"}`;
+            } catch (err) {
+                console.error("Status Error:", err);
+                showToast("GAGAL CEK STATUS!");
+                document.getElementById('payment-status-box').classList.remove('hidden');
+                document.getElementById('payment-status-text').innerText = "Status belum bisa dicek. Pastikan backend aktif.";
+            }
+        };
+
 
         // --- ADMIN VIEW FUNCTIONS ---
         window.toggleAdminView = () => {
@@ -1955,16 +2305,41 @@ window.addTierRange = (sid, min='', max='', price='', code='') => {
             } catch (err) { showToast("SANDI SALAH!"); }
         };
         window.logout = async () => { if (confirm("Logout Admin?")) { await signOut(auth); location.reload(); } };
-
-
-
-        window.openCaraOrderModal = () => {
-            document.getElementById('modal-cara-order').classList.remove('hidden');
+        window.openHelpModal = () => {
+            document.getElementById('modal-help').classList.remove('hidden');
+            showHelpMenu();
         };
 
-        window.closeCaraOrderModal = () => {
-            document.getElementById('modal-cara-order').classList.add('hidden');
+        window.closeHelpModal = () => {
+            document.getElementById('modal-help').classList.add('hidden');
         };
+
+        window.showHelpMenu = () => {
+            document.querySelectorAll('.help-view').forEach(view => view.classList.remove('active'));
+            document.getElementById('help-menu-view').classList.add('active');
+            document.getElementById('help-modal-title').innerText = 'Bantuan / Help';
+            const backBtn = document.getElementById('help-back-btn');
+            backBtn.classList.add('hidden');
+            backBtn.classList.remove('flex');
+        };
+
+        window.showHelpView = (type) => {
+            document.querySelectorAll('.help-view').forEach(view => view.classList.remove('active'));
+
+            const titles = {
+                cara: 'Cara Order'
+            };
+
+            const target = document.getElementById(`help-${type}-view`);
+            if (target) target.classList.add('active');
+
+            document.getElementById('help-modal-title').innerText = titles[type] || 'Bantuan / Help';
+            const backBtn = document.getElementById('help-back-btn');
+            backBtn.classList.remove('hidden');
+            backBtn.classList.add('flex');
+        };
+
+
 
         // --- SEARCH, BEST SELLER, TESTIMONI, DASHBOARD ---
         window.searchProducts = () => {
