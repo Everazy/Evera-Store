@@ -1317,6 +1317,7 @@ body.dark .invoice-pill {
 
         let storeData = { topup: { items: [] }, sosmed: { items: [] }, premium: { items: [] } };
         let invoiceLogsData = [];
+        let hasStartedInvoiceLogListening = false;
         let activeCat = null, activeProd = null, activeVar = null, isAdmin = false, currentEditId = null, currentFilter = 'all';
         let socialPrice = 0, currentSocialService = null, currentSocialTier = null, premiumQty = 1, currentTestimonialEditId = null, globalSearchQuery = '';
         let hasStartedListening = false;
@@ -1449,6 +1450,12 @@ function startListening() {
                 console.error("Firestore Error:", error);
                 hideOverlay();
             });
+        }
+
+
+        function startInvoiceLogListening() {
+            if (hasStartedInvoiceLogListening || !isAdmin) return;
+            hasStartedInvoiceLogListening = true;
 
             const invoicePath = `artifacts/${appId}/public/data/invoiceLogs`;
             onSnapshot(query(collection(db, invoicePath), orderBy('createdAt', 'desc'), limit(50)), (snapshot) => {
@@ -1459,6 +1466,7 @@ function startListening() {
                 renderAdminInvoiceLogs();
             }, (error) => {
                 console.error("Invoice Logs Error:", error);
+                showToast("LOG INVOICE TIDAK BISA DIBACA!");
             });
         }
 
@@ -1477,6 +1485,7 @@ onAuthStateChanged(auth, async (u) => {
             }
 
             safeStartListening();
+            if (isAdmin) startInvoiceLogListening();
         } else {
             await signInAnonymously(auth);
         }
@@ -1760,7 +1769,7 @@ window.updateSosmedPrice = () => {
                 await addDoc(collection(db, invoicePath), invoiceData);
             } catch (err) {
                 console.error("Gagal simpan invoice log:", err);
-                showToast("LOG INVOICE GAGAL DISIMPAN!");
+                showToast("LOG INVOICE GAGAL DISIMPAN! CEK FIREBASE RULES.");
             }
         }
 
@@ -1822,7 +1831,6 @@ window.updateSosmedPrice = () => {
 
             const invoiceData = {
                 invoiceId,
-                productId: activeProd.id || '-',
                 productCode: prodCode,
                 productName: itemName,
                 productCategory: activeProd.category || '-',
@@ -1837,12 +1845,10 @@ window.updateSosmedPrice = () => {
 
             await saveInvoiceLog(invoiceData);
 
-            const msg = `INVOICE: ${invoiceId}
-.buy ${prodCode} | ${qty} | ${note || '-'}
-
+            const msg = `.buy ${prodCode} | ${qty} | ${note || '-'}
+Invoice: ${invoiceId}
 Produk: ${itemName}
 Detail: ${orderDetail}
-ID Produk: ${activeProd.id || '-'}
 Total: Rp ${Number(totalPrice || 0).toLocaleString('id-ID')}`;
 
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
@@ -1855,7 +1861,7 @@ Total: Rp ${Number(totalPrice || 0).toLocaleString('id-ID')}`;
             if (av.classList.contains('hidden')) {
                 uv.classList.add('hidden'); av.classList.remove('hidden'); bb.classList.add('hidden');
                 switchTxt.innerText = "Katalog"; switchIcon.className = "fas fa-eye text-[10px] mr-1.5";
-                renderAdminProducts(); updateAdminStats(); renderAdminInvoiceLogs();
+                startInvoiceLogListening(); renderAdminProducts(); updateAdminStats(); renderAdminInvoiceLogs();
             } else {
                 uv.classList.remove('hidden'); av.classList.add('hidden');
                 switchTxt.innerText = "Dashboard"; switchIcon.className = "fas fa-tools text-[10px] mr-1.5";

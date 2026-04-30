@@ -1,18 +1,20 @@
-# Everastore - Invoice Log No Payment Gateway
+# Everastore - Invoice Log Fixed
 
-Versi ini:
-- Payment gateway sudah dihapus.
-- Checkout kembali langsung ke WhatsApp.
-- Setiap pesanan membuat ID invoice random.
-- ID invoice ikut terkirim ke WhatsApp.
-- Log invoice tersimpan di Firebase Firestore.
-- Log invoice hanya tampil di Admin Dashboard.
+Perubahan:
+- Payment gateway dihapus.
+- WhatsApp dimulai dari `.buy`.
+- Invoice ID berada tepat di atas Produk.
+- ID Produk dihapus.
+- Log Invoice hanya mulai dibaca saat admin login/membuka dashboard, supaya tidak gagal jika rules Firestore membatasi read untuk admin.
 
-## File
-Upload `index.html` ke root GitHub repo kamu.
+## Sistem Log Invoice
+Saat user klik Konfirmasi WhatsApp:
+1. Website membuat invoice random, contoh `INV-250131-ABCDE`.
+2. Data invoice disimpan ke Firestore:
+   `artifacts/everast-27aec-main/public/data/invoiceLogs`
+3. Pesan WhatsApp dibuka dengan format `.buy ...`.
+4. Admin Dashboard membaca invoiceLogs dan menampilkan riwayat.
 
-## Catatan
-Log invoice tersimpan di path Firestore:
-`artifacts/everast-27aec-main/public/data/invoiceLogs`
-
-Jika rules Firestore kamu membatasi write, pastikan anonymous user boleh menulis ke path tersebut, atau sesuaikan rules Firebase kamu.
+Jika log tidak muncul:
+- cek Console browser untuk error `Invoice Logs Error` atau `Gagal simpan invoice log`
+- cek Firestore Rules, pastikan user boleh create invoice log dan admin boleh read invoice log.
