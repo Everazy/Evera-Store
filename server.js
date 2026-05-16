@@ -179,6 +179,10 @@ app.get('*', (_req, res) => {
   res.sendFile(path.join(__dirname, 'everastore_sakurupiah.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`Everastore Sakurupiah server running on http://localhost:${PORT}`);
-});
+if (process.env.VERCEL !== "1") {
+  app.listen(PORT, () => {
+    console.log(`Everastore Sakurupiah server running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
