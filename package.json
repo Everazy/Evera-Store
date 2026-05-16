@@ -1,15 +1,15 @@
 {
   "name": "everastore-sakurupiah-payment",
   "version": "1.0.0",
+  "description": "Everastore with Sakurupiah payment gateway",
   "type": "module",
+  "main": "api/index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node api/index.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "express": "^4.19.2"
-  },
-  "engines": {
-    "node": ">=18"
+    "express": "^4.18.3"
   }
 }
